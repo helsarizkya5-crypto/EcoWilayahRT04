@@ -325,14 +325,13 @@
                     <div id="trashDirectoryGrid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
                 </section>
 
-                <!-- SECTION 4: PRICE LIST & DIAGRAM ALUR SETOR SAMPAH -->
+                <!-- SECTION 4: PRICE LIST & PANDUAN -->
                 <section id="tab-panduan" class="tab-panel hidden space-y-8">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Panduan Setor & Price List</h2>
                         <p class="text-slate-500 dark:text-slate-400 text-sm">Standar harga beli per kg di Bank Sampah RT 04 / RW 01 Kembangarum.</p>
                     </div>
 
-                    <!-- DIAGRAM ALUR ATURAN / CARA MENYETORKAN SAMPAH -->
                     <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 shadow-xl border border-emerald-500/20">
                         <div class="text-center space-y-1">
                             <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold uppercase">SOP Layanan Warga</span>
@@ -522,7 +521,7 @@
                     </div>
                 </section>
 
-                <!-- SECTION 8: GALERI -->
+                <!-- SECTION 8: GALERI (TAMPILAN FOTO DI ATAS, JUDUL & KETERANGAN DI BAWAH) -->
                 <section id="tab-galeri" class="tab-panel hidden space-y-6">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Galeri Warga & KWT</h2>
@@ -532,7 +531,7 @@
                     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6" id="galleryGrid"></div>
                 </section>
 
-                <!-- SECTION 9: HOST ADMIN PANEL -->
+                <!-- SECTION 9: HOST ADMIN PANEL (DRAG & DROP / UPLOAD FILE FOTO) -->
                 <section id="tab-admin" class="tab-panel hidden space-y-8">
                     <div class="glass-card p-6 md:p-8 rounded-3xl border-2 border-emerald-500/40 space-y-6 shadow-2xl relative overflow-hidden">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
@@ -572,31 +571,34 @@
                             </form>
                         </div>
 
-                        <!-- Upload Konten Form -->
+                        <!-- Upload Konten Form dengan Drag & Drop File Foto -->
                         <form id="hostUploadForm" onsubmit="handleHostUpload(event)" class="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
-                            <h3 class="font-bold text-sm">Unggah Foto Galeri atau Artikel Kerajinan</h3>
+                            <h3 class="font-bold text-sm">Unggah Foto Galeri atau Artikel (Pilih File / Drag & Drop)</h3>
                             <div class="grid md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold mb-1">Pilih Kategori Publis</label>
+                                    <label class="block text-xs font-bold mb-1">Pilih Kategori Publikasi</label>
                                     <select id="hostPostCategory" required class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
                                         <option value="galeri">Galeri Kegiatan KWT / Bank Sampah</option>
                                         <option value="kerajinan">Artikel / Panduan Kerajinan Daur Ulang</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold mb-1">Judul Kegiatan</label>
-                                    <input type="text" id="hostPostTitle" required placeholder="Contoh: Kerja Bakti Pembersihan Lingkungan RT 04" class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                                    <label class="block text-xs font-bold mb-1">Judul Kegiatan / Foto</label>
+                                    <input type="text" id="hostPostTitle" required placeholder="Contoh: Kerja Bakti Pembersihan Lingkungan" class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
                                 </div>
                             </div>
+
+                            <!-- Input File Foto Langsung (Drag & Drop Area) -->
                             <div>
-                                <label class="block text-xs font-bold mb-1">Link URL Gambar Dokumentasi</label>
-                                <input type="url" id="hostPostImageUrl" required placeholder="https://images.unsplash.com/photo-..." class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                                <label class="block text-xs font-bold mb-1">Pilih File Foto (PNG / JPG) atau Seret ke Sini</label>
+                                <input type="file" id="hostPostImageFile" accept="image/png, image/jpeg" required class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-500 file:text-white hover:file:bg-emerald-600">
                             </div>
+
                             <div>
-                                <label class="block text-xs font-bold mb-1">Deskripsi Keterangan</label>
-                                <textarea id="hostPostDesc" rows="2" required placeholder="Tuliskan detail kegiatan..." class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs"></textarea>
+                                <label class="block text-xs font-bold mb-1">Deskripsi Keterangan Foto</label>
+                                <textarea id="hostPostDesc" rows="2" required placeholder="Tuliskan detail keterangan kegiatan..." class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs"></textarea>
                             </div>
-                            <button type="submit" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-lg">Terbitkan Konten</button>
+                            <button type="submit" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-lg hover:bg-emerald-700 transition">Terbitkan Konten</button>
                         </form>
 
                         <div class="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-3">
@@ -645,7 +647,6 @@
                 <button onclick="switchAuthMode('register')" id="modeRegisterBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500">Daftar Akun Baru</button>
             </div>
 
-            <!-- LOGIN FORM -->
             <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-3">
                 <div>
                     <label class="block text-xs font-bold mb-1">Email Terdaftar</label>
@@ -658,7 +659,6 @@
                 <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition">Masuk Sekarang</button>
             </form>
 
-            <!-- REGISTRATION FORM -->
             <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="space-y-3 hidden">
                 <div>
                     <label class="block text-xs font-bold mb-1">1. Nama / Nama Kepala Keluarga</label>
@@ -824,14 +824,10 @@
             renderGallery();
             renderHostManageTable();
             renderNotifications();
-            
-            // Tarik data gabungan seluruh warga dari Google Spreadsheet
             await fetchGlobalDataFromGSheet();
-            
             checkTabAccessUI();
         };
 
-        // FUNGSI MENARIK DATA GLOBAL DARI GSHEET
         async function fetchGlobalDataFromGSheet() {
             try {
                 const response = await fetch(GSHEET_WEBHOOK_URL);
@@ -901,7 +897,6 @@
 
         function openHostVerifyModal() { document.getElementById('hostVerifyModal').classList.remove('hidden'); }
         function closeHostVerifyModal() { document.getElementById('hostVerifyModal').classList.add('hidden'); }
-
         function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
         function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
 
@@ -929,23 +924,17 @@
             const pass = document.getElementById('regPass').value;
             const passConfirm = document.getElementById('regPassConfirm').value;
 
-            if (pass !== passConfirm) {
-                alert('Konfirmasi kata sandi tidak sama!');
-                return;
-            }
+            if (pass !== passConfirm) { alert('Konfirmasi kata sandi tidak sama!'); return; }
 
             let registeredUsers = JSON.parse(localStorage.getItem('ecoRegisteredUsers')) || [];
-            const existing = registeredUsers.find(u => u.email === email);
-            if (existing) {
-                alert('Email ini sudah terdaftar! Silakan langsung login.');
+            if (registeredUsers.find(u => u.email === email)) {
+                alert('Email ini sudah terdaftar!');
                 switchAuthMode('login');
                 return;
             }
 
-            const newUser = { name, nik, address, familyCount, email, pass, role: 'warga' };
-            registeredUsers.push(newUser);
+            registeredUsers.push({ name, nik, address, familyCount, email, pass, role: 'warga' });
             localStorage.setItem('ecoRegisteredUsers', JSON.stringify(registeredUsers));
-
             alert('Pendaftaran akun berhasil! Silakan masuk.');
             document.getElementById('registerForm').reset();
             switchAuthMode('login');
@@ -966,24 +955,13 @@
                     alert('Login Host Berhasil!');
                     switchTab('admin');
                     return;
-                } else {
-                    alert('Kata sandi host salah!');
-                    return;
-                }
+                } else { alert('Kata sandi host salah!'); return; }
             }
 
             let registeredUsers = JSON.parse(localStorage.getItem('ecoRegisteredUsers')) || [];
             const foundUser = registeredUsers.find(u => u.email === emailInput);
-            if (!foundUser) {
-                alert('Email belum terdaftar! Silakan daftar akun terlebih dahulu.');
-                switchAuthMode('register');
-                return;
-            }
-
-            if (foundUser.pass !== passInput) {
-                alert('Kata sandi salah!');
-                return;
-            }
+            if (!foundUser) { alert('Email belum terdaftar!'); switchAuthMode('register'); return; }
+            if (foundUser.pass !== passInput) { alert('Kata sandi salah!'); return; }
 
             currentUser = { nama: foundUser.name, email: foundUser.email, role: 'warga', alamat: foundUser.address };
             localStorage.setItem('ecoWilayahUser', JSON.stringify(currentUser));
@@ -1010,7 +988,6 @@
                 document.getElementById('hostBadgeSidebar').innerText = "ADMIN";
                 return;
             }
-
             const isHost = currentUser.role === 'admin';
             widget.innerHTML = `
                 <div class="flex items-center space-x-2">
@@ -1039,12 +1016,10 @@
             localStorage.setItem('ecoHostNotifs', JSON.stringify(hostNotifications));
             renderNotifications();
             e.target.reset();
-            alert('Pengingat penimbangan berhasil dikirim ke notifikasi seluruh warga!');
+            alert('Pengingat berhasil dikirim!');
         }
 
-        function toggleNotifDropdown() {
-            document.getElementById('notifDropdown').classList.toggle('hidden');
-        }
+        function toggleNotifDropdown() { document.getElementById('notifDropdown').classList.toggle('hidden'); }
 
         function renderNotifications() {
             const listContainer = document.getElementById('notifListContainer');
@@ -1112,8 +1087,8 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                alert('Setoran berhasil dicatat & disinkronkan ke Google Spreadsheet!');
-                setTimeout(fetchGlobalDataFromGSheet, 1500); // Refresh data global otomatis
+                alert('Setoran berhasil disinkronkan ke Google Spreadsheet!');
+                setTimeout(fetchGlobalDataFromGSheet, 1500);
             } catch (err) {
                 console.error(err);
                 alert('Gagal mengirim ke GSheet.');
@@ -1148,23 +1123,37 @@
             document.getElementById('userDetailInfo').innerText = currentUser ? currentUser.nama : 'Warga RT 04';
         }
 
+        // UPLOAD FILE FOTO KE GALERI / ARTIKEL
         function handleHostUpload(e) {
             e.preventDefault();
-            const newPost = {
-                id: Date.now(),
-                cat: document.getElementById('hostPostCategory').value,
-                title: document.getElementById('hostPostTitle').value,
-                img: document.getElementById('hostPostImageUrl').value,
-                desc: document.getElementById('hostPostDesc').value,
-                date: new Date().toISOString().split('T')[0]
+            const fileInput = document.getElementById('hostPostImageFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Silakan pilih file foto terlebih dahulu!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(uploadEvent) {
+                const newPost = {
+                    id: Date.now(),
+                    cat: document.getElementById('hostPostCategory').value,
+                    title: document.getElementById('hostPostTitle').value,
+                    img: uploadEvent.target.result, // Menyimpan file foto dalam bentuk base64
+                    desc: document.getElementById('hostPostDesc').value,
+                    date: new Date().toISOString().split('T')[0]
+                };
+
+                hostUploadedPosts.unshift(newPost);
+                localStorage.setItem('ecoHostPosts', JSON.stringify(hostUploadedPosts));
+                renderDynamicArticles();
+                renderGallery();
+                renderHostManageTable();
+                document.getElementById('hostUploadForm').reset();
+                alert('Foto & Konten berhasil diterbitkan!');
             };
-            hostUploadedPosts.unshift(newPost);
-            localStorage.setItem('ecoHostPosts', JSON.stringify(hostUploadedPosts));
-            renderDynamicArticles();
-            renderGallery();
-            renderHostManageTable();
-            document.getElementById('hostUploadForm').reset();
-            alert('Konten berhasil diterbitkan!');
+            reader.readAsDataURL(file);
         }
 
         function deleteHostPost(id) {
@@ -1177,6 +1166,10 @@
 
         function renderHostManageTable() {
             const tbody = document.getElementById('hostContentManageTable');
+            if (hostUploadedPosts.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-3 text-center text-slate-400">Belum ada konten diterbitkan.</td></tr>`;
+                return;
+            }
             tbody.innerHTML = hostUploadedPosts.map(p => `
                 <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
                     <td class="p-2 font-bold text-emerald-500 uppercase">${p.cat}</td>
@@ -1191,28 +1184,38 @@
             const container = document.getElementById('dynamicArticlesGrid');
             const craftPosts = hostUploadedPosts.filter(p => p.cat === 'kerajinan');
             if (craftPosts.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 col-span-3 text-center py-6">Belum ada artikel panduan tambahan dari host.</p>`;
+                container.innerHTML = `<p class="text-xs text-slate-400 col-span-3 text-center py-6">Belum ada artikel panduan dari host.</p>`;
                 return;
             }
             container.innerHTML = craftPosts.map(p => `
-                <div class="glass-card rounded-2xl overflow-hidden group shadow-md">
-                    <div class="h-40 bg-slate-200 overflow-hidden"><img src="${p.img}" class="w-full h-full object-cover"></div>
-                    <div class="p-4 space-y-2"><h4 class="font-bold text-base">${p.title}</h4><p class="text-xs text-slate-500">${p.desc}</p></div>
+                <div class="glass-card rounded-2xl overflow-hidden group shadow-md space-y-3 pb-4">
+                    <div class="h-48 overflow-hidden bg-slate-200"><img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300"></div>
+                    <div class="px-4 space-y-1"><h4 class="font-bold text-sm">${p.title}</h4><p class="text-xs text-slate-500">${p.desc}</p></div>
                 </div>
             `).join('');
         }
 
+        // TAMPILAN GALERI: FOTO DI ATAS, JUDUL & KETERANGAN DI BAWAH
         function renderGallery() {
             const container = document.getElementById('galleryGrid');
             const galPosts = hostUploadedPosts.filter(p => p.cat === 'galeri');
             if (galPosts.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 col-span-3 text-center py-6">Belum ada galeri foto dari host.</p>`;
+                container.innerHTML = `<p class="text-xs text-slate-400 col-span-3 text-center py-6">Belum ada galeri foto kegiatan.</p>`;
                 return;
             }
             container.innerHTML = galPosts.map(p => `
-                <div class="glass-card rounded-2xl overflow-hidden shadow-md">
-                    <div class="h-44 overflow-hidden"><img src="${p.img}" class="w-full h-full object-cover"></div>
-                    <div class="p-3"><h4 class="font-bold text-xs">${p.title}</h4><span class="text-[10px] text-slate-400 block mt-1">${p.date}</span></div>
+                <div class="glass-card rounded-3xl overflow-hidden shadow-xl border border-emerald-500/20 group hover:shadow-2xl transition duration-300 flex flex-col justify-between">
+                    <div class="h-56 w-full overflow-hidden bg-slate-900">
+                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5 space-y-2">
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 font-semibold">
+                            <span><i class="fa-solid fa-calendar-days"></i> ${p.date}</span>
+                            <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 uppercase tracking-wider">RT 04</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-slate-800 dark:text-slate-100">${p.title}</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">${p.desc}</p>
+                    </div>
                 </div>
             `).join('');
         }
