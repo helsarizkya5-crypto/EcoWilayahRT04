@@ -12,15 +12,9 @@
             theme: {
                 extend: {
                     colors: {
-                        emerald: {
-                            50: '#ecfdf5', 100: '#d1fae5', 500: '#10b981', 600: '#059669', 700: '#047857', 800: '#065f46', 900: '#064e3b',
-                        },
-                        teak: {
-                            400: '#a3e635', 500: '#84cc16', 600: '#65a30d',
-                        },
-                        amber: {
-                            400: '#fbbf24', 500: '#f59e0b',
-                        }
+                        emerald: { 50: '#ecfdf5', 100: '#d1fae5', 500: '#10b981', 600: '#059669', 700: '#047857', 800: '#065f46', 900: '#064e3b' },
+                        teak: { 400: '#a3e635', 500: '#84cc16', 600: '#65a30d' },
+                        amber: { 400: '#fbbf24', 500: '#f59e0b' }
                     },
                     animation: {
                         'float-slow': 'float 8s ease-in-out infinite',
@@ -91,7 +85,6 @@
                     </div>
                 </div>
 
-                <!-- Header Actions (Notifikasi & Theme & Auth) -->
                 <div class="flex items-center space-x-3">
                     <!-- Notifikasi Lonceng -->
                     <div class="relative">
@@ -105,7 +98,7 @@
                                 <span class="text-[10px] text-emerald-500 font-bold" id="notifCountText">0 Pesan</span>
                             </div>
                             <div id="notifListContainer" class="space-y-2 max-h-48 overflow-y-auto text-xs">
-                                <p class="text-slate-400 text-center py-4">Belum ada pengingat dari Host.</p>
+                                <p class="text-slate-400 text-center py-4">Belum ada pengingat.</p>
                             </div>
                         </div>
                     </div>
@@ -232,12 +225,41 @@
                     </div>
                 </section>
 
-                <!-- SECTION 2: EDUKASI SAMPAH (TERPERINCI & INFORMATIF) -->
+                <!-- SECTION 2: EDUKASI SAMPAH (DENGAN VIDEO 1 MENIT & POSTER) -->
                 <section id="tab-edukasi" class="tab-panel hidden space-y-8">
                     <div class="text-center max-w-3xl mx-auto space-y-2">
                         <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold uppercase">Pusat Pengetahuan Lingkungan</span>
                         <h2 class="text-3xl md:text-4xl font-black">Edukasi & Wawasan Sampah Komprehensif</h2>
                         <p class="text-slate-500 dark:text-slate-400 text-sm">Informasi terpercaya mengenai definisi, klasifikasi, dampak ekologis, hingga metode pengolahan sirkular sampah.</p>
+                    </div>
+
+                    <!-- Video Edukasi 1 Menit & Poster Infografis -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="glass-card p-6 rounded-3xl space-y-4 shadow-xl">
+                            <div class="flex items-center gap-2 text-emerald-500 font-bold text-sm">
+                                <i class="fa-solid fa-video"></i> Video Edukasi Singkat (1 Menit)
+                            </div>
+                            <div class="aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 flex items-center justify-center relative shadow-inner">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Edukasi Bank Sampah" allowfullscreen></iframe>
+                            </div>
+                            <p class="text-xs text-slate-500 text-center">Tonton ringkasan pentingnya pemilahan sampah rumah tangga dalam 1 menit.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-3xl space-y-4 shadow-xl flex flex-col justify-between">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-2 text-teak-500 font-bold text-sm">
+                                    <i class="fa-solid fa-image"></i> Poster Infografis Alur 3R
+                                </div>
+                                <div class="rounded-2xl overflow-hidden bg-emerald-500/10 border border-emerald-500/20 p-4 text-center space-y-2">
+                                    <i class="fa-solid fa-file-pdf text-4xl text-emerald-500"></i>
+                                    <h4 class="font-bold text-sm">Infografis Panduan Pilah Sampah RT 04</h4>
+                                    <p class="text-xs text-slate-500">Poster resmi sosialisasi warga Kembangarum.</p>
+                                </div>
+                            </div>
+                            <a href="#panduan" onclick="switchTab('panduan')" class="w-full py-3 text-center rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition block">
+                                Lihat Alur Panduan Penimbangan <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -259,11 +281,10 @@
                         <div class="glass-card p-5 rounded-2xl text-center border-b-4 border-teak-500 space-y-2">
                             <i class="fa-solid fa-leaf text-3xl text-teak-500"></i>
                             <span class="block text-2xl font-black">57%</span>
-                            <span class="text-xs text-slate-500 uppercase font-semibold">Dominasi Sampah Organik Rumah Tangga</span>
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Dominasi Sampah Organik Dapur</span>
                         </div>
                     </div>
 
-                    <!-- Detail Edukasi Artikel -->
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="glass-card p-6 rounded-3xl space-y-3">
                             <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold">01</div>
@@ -290,7 +311,7 @@
                     </div>
                 </section>
 
-                <!-- SECTION 3: DIREKTORI JENIS SAMPAH (DIPERBANYAK) -->
+                <!-- SECTION 3: DIREKTORI JENIS SAMPAH -->
                 <section id="tab-direktori" class="tab-panel hidden space-y-6">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Direktori & Deteksi Jenis Sampah</h2>
@@ -305,11 +326,42 @@
                     <div id="trashDirectoryGrid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
                 </section>
 
-                <!-- SECTION 4: PRICE LIST & PANDUAN -->
-                <section id="tab-panduan" class="tab-panel hidden space-y-6">
+                <!-- SECTION 4: PRICE LIST & DIAGRAM ALUR SETOR SAMPAH -->
+                <section id="tab-panduan" class="tab-panel hidden space-y-8">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Panduan Setor & Price List</h2>
                         <p class="text-slate-500 dark:text-slate-400 text-sm">Standar harga beli per kg di Bank Sampah RT 04 / RW 01 Kembangarum.</p>
+                    </div>
+
+                    <!-- DIAGRAM ALUR ATURAN / CARA MENYETORKAN SAMPAH -->
+                    <div class="glass-card p-6 md:p-8 rounded-3xl space-y-6 shadow-xl border border-emerald-500/20">
+                        <div class="text-center space-y-1">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold uppercase">SOP Layanan Warga</span>
+                            <h3 class="text-xl font-bold">Diagram Alur Aturan & Cara Menyetorkan Sampah</h3>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                            <div class="glass-card p-4 rounded-2xl border-t-4 border-emerald-500 space-y-2 relative">
+                                <div class="w-8 h-8 rounded-xl bg-emerald-500 text-white font-bold flex items-center justify-center text-xs shadow">1</div>
+                                <h4 class="font-bold text-sm">Pemilahan Mandiri</h4>
+                                <p class="text-xs text-slate-500">Pilah sampah rumah tangga sesuai kategori (Plastik, Kertas, Organik, Jelantah) dalam kondisi bersih dan kering.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl border-t-4 border-teak-500 space-y-2 relative">
+                                <div class="w-8 h-8 rounded-xl bg-teak-500 text-white font-bold flex items-center justify-center text-xs shadow">2</div>
+                                <h4 class="font-bold text-sm">Bawa ke Pos RT 04</h4>
+                                <p class="text-xs text-slate-500">Serahkan setoran sampah sesuai jadwal penimbangan rutin (Sabtu Pagi pukul 08:00 - 11:00 WIB) di Pos RT.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl border-t-4 border-amber-500 space-y-2 relative">
+                                <div class="w-8 h-8 rounded-xl bg-amber-500 text-white font-bold flex items-center justify-center text-xs shadow">3</div>
+                                <h4 class="font-bold text-sm">Penimbangan & Input</h4>
+                                <p class="text-xs text-slate-500">Petugas RT menimbang berat aktual dan memasukkannya ke sistem aplikasi untuk mencatat nilai Rupiah.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl border-t-4 border-cyan-500 space-y-2 relative">
+                                <div class="w-8 h-8 rounded-xl bg-cyan-500 text-white font-bold flex items-center justify-center text-xs shadow">4</div>
+                                <h4 class="font-bold text-sm">Tabungan Terupdate</h4>
+                                <p class="text-xs text-slate-500">Saldo tabungan digital warga bertambah otomatis dan tercatat langsung secara real-time ke Google Spreadsheet.</p>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="glass-card rounded-3xl overflow-hidden p-6">
@@ -329,7 +381,7 @@
                     </div>
                 </section>
 
-                <!-- SECTION 5: KOMPOSTING & KWT (INFORMASI LENGKAP) -->
+                <!-- SECTION 5: KOMPOSTING & KWT -->
                 <section id="tab-kompos" class="tab-panel hidden space-y-8">
                     <div class="text-center max-w-3xl mx-auto space-y-2">
                         <span class="px-3 py-1 rounded-full bg-teak-500/10 text-teak-500 text-xs font-bold uppercase">Panduan Teknis Pertanian Urban</span>
@@ -375,7 +427,7 @@
                     <div id="dynamicArticlesGrid" class="grid md:grid-cols-3 gap-6"></div>
                 </section>
 
-                <!-- SECTION 6: KUIS INTERAKTIF (SOAL DIPERBANYAK) -->
+                <!-- SECTION 6: KUIS INTERAKTIF -->
                 <section id="tab-kuis" class="tab-panel hidden space-y-6">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Zero Waste Challenge Quiz</h2>
@@ -384,7 +436,7 @@
 
                     <div class="max-w-2xl mx-auto glass-card p-6 md:p-8 rounded-3xl space-y-6 shadow-2xl relative" id="quizContainer">
                         <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
-                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-500" id="quizProgress">Soal 1 dari 5</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-500" id="quizProgress">Soal 1 dari 4</span>
                             <div class="flex items-center gap-2">
                                 <i class="fa-solid fa-star text-amber-400"></i>
                                 <span class="font-bold text-sm" id="quizScore">Skor: 0</span>
@@ -409,7 +461,7 @@
                     </div>
                 </section>
 
-                <!-- SECTION 7: BUKU TABUNGAN DIGITAL (GSHEET SYNC) -->
+                <!-- SECTION 7: BUKU TABUNGAN DIGITAL -->
                 <section id="tab-tabungan" class="tab-panel hidden space-y-8">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
@@ -484,7 +536,7 @@
                     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6" id="galleryGrid"></div>
                 </section>
 
-                <!-- SECTION 9: HOST ADMIN PANEL (FITUR BUAT JADWAL PENGINGAT NOTIFIKASI) -->
+                <!-- SECTION 9: HOST ADMIN PANEL -->
                 <section id="tab-admin" class="tab-panel hidden space-y-8">
                     <div class="glass-card p-6 md:p-8 rounded-3xl border-2 border-emerald-500/40 space-y-6 shadow-2xl relative overflow-hidden">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
@@ -582,36 +634,67 @@
         </footer>
     </div>
 
-    <!-- MODAL 1: AUTHENTICATION -->
+    <!-- MODAL 1: AUTHENTICATION (LOGIN & REGISTRASI WARGA / HOST EKSLUSIF) -->
     <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden animate-fade-in">
-        <div class="glass-card w-full max-w-md rounded-3xl p-6 space-y-5 shadow-2xl relative">
+        <div class="glass-card w-full max-w-md rounded-3xl p-6 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
             <div class="text-center space-y-1">
-                <h3 class="text-2xl font-black">Masuk Akun EcoWilayah</h3>
-                <p class="text-xs text-slate-500">Wajib login untuk mengakses seluruh fitur tabungan, kuis, dan direktori.</p>
+                <h3 class="text-2xl font-black">Portal Akses EcoWilayah</h3>
+                <p class="text-xs text-slate-500">Silakan masuk atau daftarkan akun warga Anda terlebih dahulu.</p>
             </div>
 
+            <!-- Tab Mode Switcher -->
             <div class="flex rounded-xl bg-slate-200 dark:bg-slate-800 p-1 gap-1">
-                <button onclick="switchLoginRole('warga')" id="roleWargaBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow"><i class="fa-solid fa-user"></i> Akun Warga</button>
-                <button onclick="switchLoginRole('host')" id="roleHostBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500"><i class="fa-solid fa-user-shield"></i> Host / Admin</button>
+                <button onclick="switchAuthMode('login')" id="modeLoginBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow">Masuk (Login)</button>
+                <button onclick="switchAuthMode('register')" id="modeRegisterBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500">Daftar Akun Baru</button>
             </div>
 
-            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-3">
+            <!-- LOGIN FORM -->
+            <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-3">
                 <div>
-                    <label class="block text-xs font-bold mb-1">Email / NIK Warga</label>
-                    <input type="text" id="loginIdentifier" required placeholder="warga@gmail.com atau NIK" class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                    <label class="block text-xs font-bold mb-1">Email Terdaftar</label>
+                    <input type="email" id="loginEmail" required placeholder="warga@gmail.com" class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
                 </div>
                 <div>
                     <label class="block text-xs font-bold mb-1">Kata Sandi</label>
-                    <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                    <input type="password" id="loginPass" required placeholder="••••••••" class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
                 </div>
                 <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition">Masuk Sekarang</button>
             </form>
 
-            <div class="text-center pt-2 border-t border-slate-200 dark:border-slate-800">
-                <p class="text-[11px] text-slate-500">Kredensial Default Host: <br><strong class="text-emerald-500">host.rt@ecowilayah.com</strong> | Pass: <strong class="text-emerald-500">admin123</strong></p>
-            </div>
+            <!-- REGISTRATION FORM (WARGA BARU) -->
+            <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="space-y-3 hidden">
+                <div>
+                    <label class="block text-xs font-bold mb-1">1. Nama / Nama Kepala Keluarga</label>
+                    <input type="text" id="regName" required placeholder="Bpk. Budi Santoso" class="w-full px-3 py-2 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">2. NIK (16 Digit)</label>
+                    <input type="text" id="regNik" required maxlength="16" placeholder="3374xxxxxxxxxxxx" class="w-full px-3 py-2 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">3. Alamat</label>
+                    <input type="text" id="regAddress" required placeholder="Jl. Kembangarum RT 04 / RW 01" class="w-full px-3 py-2 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">4. Jumlah Anggota Keluarga</label>
+                    <input type="number" id="regFamilyCount" required min="1" placeholder="4" class="w-full px-3 py-2 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">5. Email</label>
+                    <input type="email" id="regEmail" required placeholder="warga@gmail.com" class="w-full px-3 py-2 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">6. Kata Sandi</label>
+                    <input type="password" id="regPass" required placeholder="••••••••" class="w-full px-3 py-2 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">7. Konfirmasi Kata Sandi</label>
+                    <input type="password" id="regPassConfirm" required placeholder="••••••••" class="w-full px-3 py-2 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs">
+                </div>
+                <button type="submit" class="w-full py-2.5 rounded-xl bg-teak-600 hover:bg-teak-700 text-white font-bold text-xs shadow-md transition">Daftarkan Akun Sekarang</button>
+            </form>
         </div>
     </div>
 
@@ -620,11 +703,11 @@
         <div class="glass-card w-full max-w-sm rounded-3xl p-6 space-y-4 text-center shadow-2xl relative">
             <button onclick="closeHostVerifyModal()" class="absolute top-4 right-4 text-slate-400 text-xl"><i class="fa-solid fa-xmark"></i></button>
             <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center text-2xl"><i class="fa-solid fa-shield-halved"></i></div>
-            <h3 class="text-xl font-bold">Verifikasi Akses Host</h3>
-            <p class="text-xs text-slate-500">Fitur ini khusus untuk Pengurus RT 04 / Host KWT.</p>
+            <h3 class="text-xl font-bold">Akses Khusus Host</h3>
+            <p class="text-xs text-slate-500">Panel ini memerlukan login menggunakan salah satu dari 3 email resmi host terdaftar dengan sandi '12345'.</p>
             <div class="space-y-2 pt-2">
-                <button onclick="quickSwitchToHost()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md">Masuk Mode Host</button>
-                <button onclick="closeHostVerifyModal()" class="w-full py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs">Kembali</button>
+                <button onclick="closeHostVerifyModal(); openAuthModal();" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md">Login sebagai Host</button>
+                <button onclick="closeHostVerifyModal()" class="w-full py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs">Tutup</button>
             </div>
         </div>
     </div>
@@ -664,6 +747,14 @@
     <script>
         const GSHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwktrZNJtZw_YCMaOCRpVc09-D7-GYcy5n0LFZugLEEAvguP2jj4vihLkebshTPpWB0PQ/exec";
 
+        // 3 Email Resmi Host Terdaftar (Sandi: 12345)
+        const OFFICIAL_HOSTS = [
+            "helsarizkya1@gmail.com",
+            "helsarizkya2@gmail.com",
+            "helsarizkya3@gmail.com"
+        ];
+
+        let registeredUsers = JSON.parse(localStorage.getItem('ecoRegisteredUsers')) || [];
         let currentUser = JSON.parse(localStorage.getItem('ecoWilayahUser')) || null;
         let hostUploadedPosts = JSON.parse(localStorage.getItem('ecoHostPosts')) || [];
         let userTransactions = JSON.parse(localStorage.getItem('ecoWilayahTx')) || [];
@@ -789,48 +880,101 @@
         function openHostVerifyModal() { document.getElementById('hostVerifyModal').classList.remove('hidden'); }
         function closeHostVerifyModal() { document.getElementById('hostVerifyModal').classList.add('hidden'); }
 
-        function quickSwitchToHost() {
-            closeHostVerifyModal();
-            currentUser = { nama: 'Host RT 04 Kembangarum', email: 'host.rt@ecowilayah.com', role: 'admin', alamat: 'Pos RT 04' };
-            localStorage.setItem('ecoWilayahUser', JSON.stringify(currentUser));
-            renderUserWidget();
-            checkTabAccessUI();
-            switchTab('admin');
-            alert('Akses Host Berhasil Diaktifkan!');
-        }
-
         function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
         function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
 
-        function switchLoginRole(role) {
-            if (role === 'host') {
-                document.getElementById('loginIdentifier').value = 'host.rt@ecowilayah.com';
-                document.getElementById('loginPassword').value = 'admin123';
-                document.getElementById('roleHostBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow";
-                document.getElementById('roleWargaBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500";
+        // TOGGLE LOGIN / REGISTER MODAL TABS
+        function switchAuthMode(mode) {
+            if (mode === 'register') {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.remove('hidden');
+                document.getElementById('modeRegisterBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold bg-teak-600 text-white shadow";
+                document.getElementById('modeLoginBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500";
             } else {
-                document.getElementById('loginIdentifier').value = '';
-                document.getElementById('loginPassword').value = '';
-                document.getElementById('roleWargaBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow";
-                document.getElementById('roleHostBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500";
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('modeLoginBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow";
+                document.getElementById('modeRegisterBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500";
             }
         }
 
-        function handleLogin(e) {
+        // PENDAFTARAN AKUN WARGA BARU
+        function handleRegisterSubmit(e) {
             e.preventDefault();
-            const email = document.getElementById('loginIdentifier').value;
-            if (email.includes('host') || email.includes('admin')) {
-                currentUser = { nama: 'Host RT 04 Kembangarum', email: email, role: 'admin', alamat: 'Pos RT 04' };
-            } else {
-                currentUser = { nama: email.split('@')[0].toUpperCase(), email: email, role: 'warga', alamat: 'RT 04 / RW 01 Kembangarum' };
+            const name = document.getElementById('regName').value.trim();
+            const nik = document.getElementById('regNik').value.trim();
+            const address = document.getElementById('regAddress').value.trim();
+            const familyCount = document.getElementById('regFamilyCount').value.trim();
+            const email = document.getElementById('regEmail').value.trim().toLowerCase();
+            const pass = document.getElementById('regPass').value;
+            const passConfirm = document.getElementById('regPassConfirm').value;
+
+            if (pass !== passConfirm) {
+                alert('Konfirmasi kata sandi tidak sama!');
+                return;
             }
+
+            // Cek apakah sudah terdaftar
+            const existing = registeredUsers.find(u => u.email === email);
+            if (existing) {
+                alert('Email ini sudah terdaftar! Silakan langsung login.');
+                switchAuthMode('login');
+                return;
+            }
+
+            const newUser = { name, nik, address, familyCount, email, pass, role: 'warga' };
+            registeredUsers.push(newUser);
+            localStorage.setItem('ecoRegisteredUsers', JSON.stringify(registeredUsers));
+
+            alert('Pendaftaran akun berhasil! Silakan masuk menggunakan email dan kata sandi yang telah didaftarkan.');
+            document.getElementById('registerForm').reset();
+            switchAuthMode('login');
+        }
+
+        // PROSES LOGIN (VALIDASI HOST ATAU WARGA TERDAFTAR)
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const passInput = document.getElementById('loginPass').value;
+
+            // 1. Cek apakah login sebagai Host Resmi
+            if (OFFICIAL_HOSTS.includes(emailInput)) {
+                if (passInput === "12345") {
+                    currentUser = { nama: 'Host RT 04 Kembangarum', email: emailInput, role: 'admin', alamat: 'Pos RT 04' };
+                    localStorage.setItem('ecoWilayahUser', JSON.stringify(currentUser));
+                    renderUserWidget();
+                    checkTabAccessUI();
+                    closeAuthModal();
+                    alert('Login Host Berhasil!');
+                    switchTab('admin');
+                    return;
+                } else {
+                    alert('Kata sandi host salah!');
+                    return;
+                }
+            }
+
+            // 2. Cek apakah terdaftar sebagai Warga
+            const foundUser = registeredUsers.find(u => u.email === emailInput);
+            if (!foundUser) {
+                alert('Email belum terdaftar! Silakan daftar akun terlebih dahulu melalui tab "Daftar Akun Baru".');
+                switchAuthMode('register');
+                return;
+            }
+
+            if (foundUser.pass !== passInput) {
+                alert('Kata sandi salah! Pastikan sama seperti saat didaftarkan.');
+                return;
+            }
+
+            // Login Berhasil untuk Warga
+            currentUser = { nama: foundUser.name, email: foundUser.email, role: 'warga', alamat: foundUser.address };
             localStorage.setItem('ecoWilayahUser', JSON.stringify(currentUser));
             renderUserWidget();
             checkTabAccessUI();
             closeAuthModal();
-            alert(`Selamat datang, ${currentUser.nama}! Silakan jelajahi fitur web.`);
-            if (currentUser.role === 'admin') switchTab('admin');
-            else switchTab('tabungan');
+            alert(`Selamat datang kembali, ${currentUser.nama}!`);
+            switchTab('tabungan');
         }
 
         function handleLogout() {
@@ -924,8 +1068,6 @@
             if (type.includes('Jelantah')) rate = 6500;
             if (type.includes('Kaca')) rate = 1500;
             if (type.includes('Kain')) rate = 2000;
-            if (type.includes('Gelas')) rate = 2500;
-            if (type.includes('Besi')) rate = 4500;
             const total = weight * rate;
             document.getElementById('depCalculatedRp').innerText = `Rp ${total.toLocaleString('id-ID')}`;
             return total;
