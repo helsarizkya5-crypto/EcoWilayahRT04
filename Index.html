@@ -22,31 +22,23 @@
         .animate-float { animation: floatSlow 6s ease-in-out infinite; }
         .animate-glow { animation: pulseGlow 4s ease-in-out infinite; }
         
-        /* Glassmorphism utility */
+        /* Clean Solid & Glass Styling */
         .glass-card {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(209, 213, 219, 0.4);
+            border: 1px solid rgba(209, 213, 219, 0.6);
         }
         .dark .glass-card {
-            background: rgba(17, 24, 39, 0.85);
-            border: 1px solid rgba(55, 65, 81, 0.4);
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(51, 65, 85, 0.6);
         }
     </style>
 </head>
-<body class="bg-emerald-50/50 dark:bg-gray-950 text-gray-800 dark:text-gray-100 min-h-screen font-sans transition-colors duration-300 relative overflow-x-hidden">
+<body class="bg-slate-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen font-sans transition-colors duration-300 relative overflow-x-hidden">
 
     <!-- Ambient Animated Background Elements -->
     <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-400/20 dark:bg-emerald-600/10 rounded-full blur-3xl pointer-events-none animate-glow"></div>
     <div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-teal-400/20 dark:bg-teal-600/10 rounded-full blur-3xl pointer-events-none animate-glow" style="animation-delay: 2s;"></div>
-
-    <!-- Floating Leaf Deco -->
-    <div class="fixed top-20 right-10 text-emerald-500/30 dark:text-emerald-400/20 pointer-events-none animate-float hidden lg:block">
-        <i data-lucide="leaf" class="w-16 h-16"></i>
-    </div>
-    <div class="fixed bottom-20 left-10 text-teal-500/30 dark:text-teal-400/20 pointer-events-none animate-float hidden lg:block" style="animation-delay: 3s;">
-        <i data-lucide="sprout" class="w-16 h-16"></i>
-    </div>
 
     <!-- HEADER & NAVBAR -->
     <header class="sticky top-0 z-50 glass-card border-b border-emerald-100 dark:border-gray-800 shadow-sm">
@@ -58,7 +50,7 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-black tracking-tight bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">EcoWilayah</h1>
-                    <p class="text-xs font-medium text-emerald-700 dark:text-emerald-400">RT 04 / RW 01 Kembangarum, Semarang</p>
+                    <p class="text-xs font-semibold text-emerald-700 dark:text-emerald-400">RT 04 / RW 01 Kembangarum, Semarang</p>
                 </div>
             </div>
 
@@ -88,15 +80,15 @@
                 <button onclick="switchTab('galeri')" class="nav-btn px-3 py-2 rounded-xl transition hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-2" data-tab="galeri">
                     <i data-lucide="image" class="w-4 h-4"></i> Galeri Kegiatan
                 </button>
-                <!-- Host Panel Button (Muncul jika host aktif) -->
+                <!-- Host Panel Button -->
                 <button id="navHostBtn" onclick="switchTab('host')" class="nav-btn px-3 py-2 rounded-xl transition bg-emerald-600/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-600/20 font-semibold items-center gap-2 hidden" data-tab="host">
                     <i data-lucide="shield-check" class="w-4 h-4"></i> Panel Host
                 </button>
             </nav>
 
-            <!-- Right Controls: Theme Toggle & User Auth Status / Notification Bell -->
+            <!-- Right Controls -->
             <div class="flex items-center gap-3">
-                <!-- Notification Bell (Untuk Warga / User) -->
+                <!-- Notification Bell -->
                 <div id="notificationContainer" class="relative hidden">
                     <button onclick="toggleNotificationDropdown()" class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-emerald-100 dark:hover:bg-gray-700 transition relative">
                         <i data-lucide="bell" class="w-5 h-5"></i>
@@ -120,10 +112,8 @@
                     <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-gray-600"></i>
                 </button>
 
-                <!-- User Profile / Auth Widget -->
-                <div id="authWidget" class="flex items-center gap-3">
-                    <!-- Akan di-render dinamis oleh JS -->
-                </div>
+                <!-- User Profile Widget -->
+                <div id="authWidget" class="flex items-center gap-3"></div>
 
                 <!-- Mobile Menu Button -->
                 <button onclick="toggleMobileMenu()" class="xl:hidden p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800">
@@ -133,7 +123,7 @@
         </div>
 
         <!-- Mobile Nav Menu Drawer -->
-        <div id="mobileMenu" class="xl:hidden hidden px-4 pt-2 pb-4 space-y-1 bg-white/95 dark:bg-gray-900/95 border-b border-gray-200 dark:border-gray-800 backdrop-blur-md">
+        <div id="mobileMenu" class="xl:hidden hidden px-4 pt-2 pb-4 space-y-1 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-lg">
             <button onclick="switchTab('beranda'); toggleMobileMenu();" class="w-full text-left px-4 py-2.5 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3 font-medium">
                 <i data-lucide="home" class="w-5 h-5 text-emerald-600"></i> Beranda
             </button>
@@ -179,14 +169,14 @@
                     <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
                         Digitalisasi Bank Sampah & <span class="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">KWT RT 04 / RW 01</span>
                     </h2>
-                    <p class="text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+                    <p class="text-gray-700 dark:text-gray-300 text-base sm:text-lg font-medium">
                         Inovasi Teknologi Tepat Guna & Multimedia untuk mewujudkan lingkungan mandiri, bersih, dan produktif melalui pengelolaan sampah sirkular dan Kelompok Wanita Tani di Kelurahan Kembangarum, Semarang Barat.
                     </p>
                     <div class="flex flex-wrap gap-4 pt-2">
                         <button onclick="checkAuthAndSwitch('tabungan')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-2xl shadow-lg shadow-emerald-600/30 transition flex items-center gap-2">
                             <i data-lucide="wallet" class="w-5 h-5"></i> Cek Buku Tabungan Warga
                         </button>
-                        <button onclick="switchTab('edukasi')" class="bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 font-bold px-6 py-3 rounded-2xl transition flex items-center gap-2">
+                        <button onclick="switchTab('edukasi')" class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-bold px-6 py-3 rounded-2xl transition flex items-center gap-2 shadow-sm">
                             <i data-lucide="book-open" class="w-5 h-5"></i> Pelajari Edukasi Sampah
                         </button>
                     </div>
@@ -201,7 +191,7 @@
                         <span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-2.5 py-1 rounded-full">Aktif</span>
                     </div>
                     <h3 class="text-3xl font-black">1.450 Kg</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Total Sampah Dikelola RT 04</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 font-medium">Total Sampah Dikelola RT 04</p>
                 </div>
                 <div class="glass-card p-6 rounded-3xl shadow-lg border-l-4 border-teal-500">
                     <div class="flex items-center justify-between mb-4">
@@ -209,7 +199,7 @@
                         <span class="text-xs font-bold text-teal-600 bg-teal-50 dark:bg-teal-900/20 px-2.5 py-1 rounded-full">KWT Produktif</span>
                     </div>
                     <h3 class="text-3xl font-black">320 Kg</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Kompos Organik untuk Taman</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 font-medium">Kompos Organik untuk Taman</p>
                 </div>
                 <div class="glass-card p-6 rounded-3xl shadow-lg border-l-4 border-cyan-500">
                     <div class="flex items-center justify-between mb-4">
@@ -217,7 +207,7 @@
                         <span class="text-xs font-bold text-cyan-600 bg-cyan-50 dark:bg-cyan-900/20 px-2.5 py-1 rounded-full">Partisipasi</span>
                     </div>
                     <h3 class="text-3xl font-black">48 KK</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Warga Terdaftar Bank Sampah</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 font-medium">Warga Terdaftar Bank Sampah</p>
                 </div>
                 <div class="glass-card p-6 rounded-3xl shadow-lg border-l-4 border-amber-500">
                     <div class="flex items-center justify-between mb-4">
@@ -225,7 +215,7 @@
                         <span class="text-xs font-bold text-amber-600 bg-amber-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-full">Pramuka Garuda</span>
                     </div>
                     <h3 class="text-3xl font-black">100%</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Siap Uji Portofolio 2027</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 font-medium">Siap Uji Portofolio 2027</p>
                 </div>
             </div>
 
@@ -234,7 +224,7 @@
                 <div class="glass-card p-8 rounded-3xl shadow-lg space-y-4">
                     <div class="w-12 h-12 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-emerald-600/30">01</div>
                     <h3 class="text-2xl font-bold">Bank Sampah Sirkular RT 04</h3>
-                    <p class="text-gray-600 dark:text-gray-300">
+                    <p class="text-gray-700 dark:text-gray-300">
                         Warga dapat menyetorkan sampah terpilah (plastik, kertas, botol, logam, minyak jelantah) secara rutin. Setiap setoran dikonversi menjadi saldo tabungan digital yang transparan dan dapat dipantau langsung melalui aplikasi web ini.
                     </p>
                     <button onclick="checkAuthAndSwitch('tabungan')" class="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-2 hover:underline pt-2">
@@ -244,7 +234,7 @@
                 <div class="glass-card p-8 rounded-3xl shadow-lg space-y-4">
                     <div class="w-12 h-12 bg-teal-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-teal-600/30">02</div>
                     <h3 class="text-2xl font-bold">Komposting & Taman KWT</h3>
-                    <p class="text-gray-600 dark:text-gray-300">
+                    <p class="text-gray-700 dark:text-gray-300">
                         Sampah organik rumah tangga diolah oleh Kelompok Wanita Tani (KWT) Kembangarum menjadi pupuk kompos berkualitas tinggi, menyuburkan tanaman sayuran dan apotek hidup di taman produktif warga RT 04 / RW 01.
                     </p>
                     <button onclick="switchTab('komposting')" class="text-teal-600 dark:text-teal-400 font-bold flex items-center gap-2 hover:underline pt-2">
@@ -254,12 +244,12 @@
             </div>
         </section>
 
-        <!-- TAB 2: EDUKASI SAMPAH (Bisa diakses tanpa login) -->
+        <!-- TAB 2: EDUKASI SAMPAH -->
         <section id="tab-edukasi" class="tab-content hidden space-y-12">
             <div class="text-center max-w-3xl mx-auto space-y-4">
                 <span class="bg-emerald-600/10 text-emerald-700 dark:text-emerald-300 font-semibold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">Edukasi & Wawasan</span>
                 <h2 class="text-3xl sm:text-4xl font-black">Kondisi Sampah di Indonesia & Konsep 3R</h2>
-                <p class="text-gray-600 dark:text-gray-300">Pahami urgensi pengelolaan sampah dari tingkat rumah tangga hingga kontribusinya bagi lingkungan.</p>
+                <p class="text-gray-700 dark:text-gray-300">Pahami urgensi pengelolaan sampah dari tingkat rumah tangga hingga kontribusinya bagi lingkungan.</p>
             </div>
 
             <!-- Info Cards Indonesia -->
@@ -267,17 +257,17 @@
                 <div class="glass-card p-6 rounded-3xl shadow-lg space-y-3">
                     <div class="p-3 bg-red-100 text-red-600 rounded-2xl w-fit"><i data-lucide="alert-triangle" class="w-6 h-6"></i></div>
                     <h3 class="text-xl font-bold">Timbulan Sampah Nasional</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">Indonesia menghasilkan puluhan juta ton sampah per tahun, di mana sebagian besar didominasi oleh sampah rumah tangga organik dan plastik fleksibel yang belum terpilah dengan baik di sumbernya.</p>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">Indonesia menghasilkan puluhan juta ton sampah per tahun, di mana sebagian besar didominasi oleh sampah rumah tangga organik dan plastik fleksibel yang belum terpilah dengan baik di sumbernya.</p>
                 </div>
                 <div class="glass-card p-6 rounded-3xl shadow-lg space-y-3">
                     <div class="p-3 bg-amber-100 text-amber-600 rounded-2xl w-fit"><i data-lucide="pie-chart" class="w-6 h-6"></i></div>
                     <h3 class="text-xl font-bold">Peran Bank Sampah</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">Bank sampah berbasis RT/RW adalah benteng pertahanan pertama untuk mengurangi beban TPA (Tempat Pembuangan Akhir) melalui pemilahan ekonomis dan pemberdayaan ekonomi sirkular lokal.</p>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">Bank sampah berbasis RT/RW adalah benteng pertahanan pertama untuk mengurangi beban TPA (Tempat Pembuangan Akhir) melalui pemilahan ekonomis dan pemberdayaan ekonomi sirkular lokal.</p>
                 </div>
                 <div class="glass-card p-6 rounded-3xl shadow-lg space-y-3">
                     <div class="p-3 bg-emerald-100 text-emerald-600 rounded-2xl w-fit"><i data-lucide="leaf" class="w-6 h-6"></i></div>
                     <h3 class="text-xl font-bold">Integrasi KWT</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">Sampah organik dari rumah warga langsung diolah menjadi pupuk kompos untuk mendukung ketahanan pangan keluarga melalui kebun Kelompok Wanita Tani (KWT).</p>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">Sampah organik dari rumah warga langsung diolah menjadi pupuk kompos untuk mendukung ketahanan pangan keluarga melalui kebun Kelompok Wanita Tani (KWT).</p>
                 </div>
             </div>
 
@@ -285,28 +275,28 @@
             <div class="glass-card p-8 sm:p-10 rounded-3xl shadow-lg space-y-6">
                 <h3 class="text-2xl font-bold text-center">Penerapan Konsep 3R (Reduce, Reuse, Recycle)</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="p-6 rounded-2xl bg-emerald-50 dark:bg-gray-800/60 border border-emerald-500/20 space-y-2">
+                    <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-emerald-500/20 shadow-sm space-y-2">
                         <span class="text-emerald-600 font-black text-lg">1. REDUCE (Mengurangi)</span>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">Membatasi penggunaan plastik sekali pakai saat berbelanja ke pasar atau warung sekitar Kembangarum.</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">Membatasi penggunaan plastik sekali pakai saat berbelanja ke pasar atau warung sekitar Kembangarum.</p>
                     </div>
-                    <div class="p-6 rounded-2xl bg-teal-50 dark:bg-gray-800/60 border border-teal-500/20 space-y-2">
+                    <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-teal-500/20 shadow-sm space-y-2">
                         <span class="text-teal-600 font-black text-lg">2. REUSE (Menggunakan Kembali)</span>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">Memanfaatkan botol bekas air mineral menjadi pot tanaman gantung atau wadah pembibitan di taman KWT.</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">Memanfaatkan botol bekas air mineral menjadi pot tanaman gantung atau wadah pembibitan di taman KWT.</p>
                     </div>
-                    <div class="p-6 rounded-2xl bg-cyan-50 dark:bg-gray-800/60 border border-cyan-500/20 space-y-2">
+                    <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-cyan-500/20 shadow-sm space-y-2">
                         <span class="text-cyan-600 font-black text-lg">3. RECYCLE (Mendaur Ulang)</span>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">Mengolah sampah anorganik bernilai melalui bank sampah atau kerajinan tangan kreatif bernilai ekonomis.</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">Mengolah sampah anorganik bernilai melalui bank sampah atau kerajinan tangan kreatif bernilai ekonomis.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 3: DIREKTORI SAMPAH (Terkunci jika belum login) -->
+        <!-- TAB 3: DIREKTORI SAMPAH -->
         <section id="tab-direktori" class="tab-content hidden space-y-8">
             <div class="text-center max-w-2xl mx-auto space-y-3">
                 <span class="bg-emerald-600/10 text-emerald-700 font-semibold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">Pencarian Cerdas</span>
                 <h2 class="text-3xl font-black">Direktori & Pencarian Jenis Sampah</h2>
-                <p class="text-gray-600 dark:text-gray-300">Ketik jenis sampah di bawah untuk mengetahui apakah sampah tersebut masuk ke Bank Sampah atau Kompos KWT.</p>
+                <p class="text-gray-700 dark:text-gray-300">Ketik jenis sampah di bawah untuk mengetahui apakah sampah tersebut masuk ke Bank Sampah atau Kompos KWT.</p>
             </div>
             
             <div class="max-w-xl mx-auto">
@@ -316,17 +306,15 @@
                 </div>
             </div>
 
-            <div id="direktoriList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Diisi via JavaScript -->
-            </div>
+            <div id="direktoriList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- TAB 4: PRICE LIST & PANDUAN (Terkunci jika belum login) -->
+        <!-- TAB 4: PRICE LIST & PANDUAN -->
         <section id="tab-panduan" class="tab-content hidden space-y-12">
             <div class="text-center max-w-2xl mx-auto space-y-3">
                 <span class="bg-emerald-600/10 text-emerald-700 font-semibold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">Transparansi Harga</span>
                 <h2 class="text-3xl font-black">Panduan Bank Sampah & Estimasi Harga</h2>
-                <p class="text-gray-600 dark:text-gray-300">Patokan harga per kilogram sampah yang berlaku di Bank Sampah RT 04 / RW 01 Kembangarum.</p>
+                <p class="text-gray-700 dark:text-gray-300">Patokan harga per kilogram sampah yang berlaku di Bank Sampah RT 04 / RW 01 Kembangarum.</p>
             </div>
 
             <div class="glass-card rounded-3xl shadow-xl overflow-hidden border border-emerald-500/20">
@@ -340,20 +328,18 @@
                                 <th class="p-4 font-semibold">Keterangan / Kondisi</th>
                             </tr>
                         </thead>
-                        <tbody id="priceListTable" class="divide-y divide-gray-200 dark:divide-gray-800 text-sm">
-                            <!-- Diisi via JS -->
-                        </tbody>
+                        <tbody id="priceListTable" class="divide-y divide-gray-200 dark:divide-gray-800 text-sm"></tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 5: KOMPOSTING & TAMAN KWT (Terkunci jika belum login) -->
+        <!-- TAB 5: KOMPOSTING & TAMAN KWT -->
         <section id="tab-komposting" class="tab-content hidden space-y-12">
             <div class="text-center max-w-2xl mx-auto space-y-3">
                 <span class="bg-teal-600/10 text-teal-700 font-semibold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">Pertanian Perkotaan</span>
                 <h2 class="text-3xl font-black">Komposting & Daur Ulang Kerajinan KWT</h2>
-                <p class="text-gray-600 dark:text-gray-300">Pusat edukasi pengolahan sampah organik menjadi kompos dan kerajinan tangan bernilai seni.</p>
+                <p class="text-gray-700 dark:text-gray-300">Pusat edukasi pengolahan sampah organik menjadi kompos dan kerajinan tangan bernilai seni.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -362,7 +348,7 @@
                         <div class="p-3 bg-teal-100 text-teal-600 rounded-2xl"><i data-lucide="flower" class="w-6 h-6"></i></div>
                         <h3 class="text-2xl font-bold">Alur Pembuatan Kompos KWT</h3>
                     </div>
-                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300 list-disc list-inside">
+                    <ul class="space-y-3 text-sm text-gray-700 dark:text-gray-300 list-disc list-inside">
                         <li>Pengumpulan sisa sayur dan buah dari warga RT 04 / RW 01.</li>
                         <li>Pencacahan bahan organik agar mempercepat proses penguraian.</li>
                         <li>Pencampuran dengan cairan aktivator EM4 dan sekam padi.</li>
@@ -374,7 +360,7 @@
                         <div class="p-3 bg-emerald-100 text-emerald-600 rounded-2xl"><i data-lucide="sparkles" class="w-6 h-6"></i></div>
                         <h3 class="text-2xl font-bold">Kerajinan Unik Daur Ulang</h3>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                    <p class="text-sm text-gray-700 dark:text-gray-300">
                         Selain kompos, Kelompok Wanita Tani (KWT) dan pemuda karang taruna aktif mendaur ulang kemasan sachet kopi dan botol plastik menjadi tas anyaman, dompet cantik, serta pot bunga artistik yang dipamerkan dalam acara kelurahan.
                     </p>
                     <div class="pt-2">
@@ -383,44 +369,36 @@
                 </div>
             </div>
 
-            <!-- Dynamic Articles from Host -->
             <div class="space-y-6">
                 <h3 class="text-2xl font-bold">Artikel & Panduan Terbaru dari Host</h3>
-                <div id="dynamicCraftList" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Diisi via JS (Postingan Host) -->
-                </div>
+                <div id="dynamicCraftList" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
             </div>
         </section>
 
-        <!-- TAB 6: KUIS INTERAKTIF (Terkunci jika belum login) -->
+        <!-- TAB 6: KUIS INTERAKTIF -->
         <section id="tab-kuis" class="tab-content hidden space-y-8">
             <div class="text-center max-w-2xl mx-auto space-y-3">
                 <span class="bg-emerald-600/10 text-emerald-700 font-semibold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">Uji Pemahaman</span>
                 <h2 class="text-3xl font-black">Zero Waste Challenge Quiz</h2>
-                <p class="text-gray-600 dark:text-gray-300">Jawab pertanyaan seputar sampah dan lingkungan. Jika jawabanmu salah, penjelasan edukatif akan langsung muncul!</p>
+                <p class="text-gray-700 dark:text-gray-300">Jawab pertanyaan seputar sampah dan lingkungan. Jika jawabanmu salah, penjelasan edukatif akan langsung muncul!</p>
             </div>
 
             <div class="max-w-2xl mx-auto glass-card p-8 rounded-3xl shadow-xl border border-emerald-500/20 space-y-6">
-                <div id="quizContainer">
-                    <!-- Render kuis aktif via JS -->
-                </div>
+                <div id="quizContainer"></div>
             </div>
         </section>
 
-        <!-- TAB 7: BUKU TABUNGAN DIGITAL (Terkunci jika belum login) -->
+        <!-- TAB 7: BUKU TABUNGAN DIGITAL -->
         <section id="tab-tabungan" class="tab-content hidden space-y-8">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <span class="bg-emerald-600/10 text-emerald-700 font-semibold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">Dashboard Warga</span>
                     <h2 class="text-3xl font-black mt-2">Buku Tabungan Bank Sampah Digital</h2>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm">Monitoring setoran sampah dan total saldo transaksi keluarga Anda.</p>
+                    <p class="text-gray-700 dark:text-gray-300 text-sm">Monitoring setoran sampah dan total saldo transaksi keluarga Anda.</p>
                 </div>
-                <div id="userWelcomeBadge" class="glass-card px-4 py-2 rounded-2xl flex items-center gap-3">
-                    <!-- Info User Aktif -->
-                </div>
+                <div id="userWelcomeBadge" class="glass-card px-4 py-2 rounded-2xl flex items-center gap-3"></div>
             </div>
 
-            <!-- Stats & Chart Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="glass-card p-6 rounded-3xl shadow-lg space-y-2">
                     <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Total Setoran Sampah</span>
@@ -439,7 +417,6 @@
                 </div>
             </div>
 
-            <!-- Grafik Chart.js -->
             <div class="glass-card p-6 sm:p-8 rounded-3xl shadow-xl border border-emerald-500/20 space-y-4">
                 <h3 class="text-xl font-bold flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-5 h-5 text-emerald-600"></i> Grafik Perkembangan Setoran Sampah (Kg)</h3>
                 <div class="h-72 w-full">
@@ -447,9 +424,7 @@
                 </div>
             </div>
 
-            <!-- Form Input Setoran Simulasi Warga & Riwayat -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Form Input -->
                 <div class="glass-card p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
                     <h3 class="text-xl font-bold flex items-center gap-2"><i data-lucide="plus-circle" class="w-5 h-5 text-emerald-600"></i> Catat Setoran Sampah Baru</h3>
                     <form id="formSetorSampah" onsubmit="handleSetorSampah(event)" class="space-y-4">
@@ -473,7 +448,6 @@
                     </form>
                 </div>
 
-                <!-- Riwayat Tabel -->
                 <div class="lg:col-span-2 glass-card p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
                     <h3 class="text-xl font-bold flex items-center gap-2"><i data-lucide="history" class="w-5 h-5 text-emerald-600"></i> Riwayat Setoran Sampah</h3>
                     <div class="overflow-x-auto">
@@ -486,43 +460,39 @@
                                     <th class="p-3 font-semibold">Estimasi Nilai</th>
                                 </tr>
                             </thead>
-                            <tbody id="riwayatTableBody" class="divide-y divide-gray-200 dark:divide-gray-800 text-sm">
-                                <!-- Diisi via JS -->
-                            </tbody>
+                            <tbody id="riwayatTableBody" class="divide-y divide-gray-200 dark:divide-gray-800 text-sm"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 8: GALERI KEGIATAN (Bisa diakses tanpa login) -->
+        <!-- TAB 8: GALERI KEGIATAN -->
         <section id="tab-galeri" class="tab-content hidden space-y-8">
             <div class="text-center max-w-2xl mx-auto space-y-3">
                 <span class="bg-emerald-600/10 text-emerald-700 font-semibold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">Dokumentasi Lapangan</span>
                 <h2 class="text-3xl font-black">Galeri Bank Sampah & Kegiatan KWT</h2>
-                <p class="text-gray-600 dark:text-gray-300">Potret aktivitas warga RT 04 / RW 01 Kembangarum dalam menjaga kebersihan dan bercocok tanam.</p>
+                <p class="text-gray-700 dark:text-gray-300">Potret aktivitas warga RT 04 / RW 01 Kembangarum dalam menjaga kebersihan dan bercocok tanam.</p>
             </div>
 
-            <div id="galeriGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Diisi via JS (Termasuk upload host) -->
-            </div>
+            <div id="galeriGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- TAB 9: PANEL HOST (Eksklusif Host / Admin) -->
+        <!-- TAB 9: PANEL HOST -->
         <section id="tab-host" class="tab-content hidden space-y-8">
             <div class="glass-card p-8 rounded-3xl shadow-xl border border-emerald-500/30 space-y-8">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-gray-200 dark:border-gray-700">
                     <div>
                         <span class="bg-emerald-600 text-white font-semibold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">Akses Khusus Pengurus</span>
                         <h2 class="text-3xl font-black mt-2">Panel Kontrol Host RT 04 / RW 01</h2>
-                        <p class="text-gray-600 dark:text-gray-300 text-sm">Unggah dokumentasi galeri, artikel kerajinan, dan buat jadwal pengingat penimbangan sampah untuk warga.</p>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm">Unggah dokumentasi galeri, artikel kerajinan, dan buat jadwal pengingat penimbangan sampah untuk warga.</p>
                     </div>
                     <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 text-sm shadow-md">
                         <i data-lucide="log-out" class="w-4 h-4"></i> Keluar Host
                     </button>
                 </div>
 
-                <!-- FORM 1: BUAT PENGINGAT PENIMBANGAN (FITUR BARU) -->
+                <!-- FORM 1: BUAT PENGINGAT PENIMBANGAN -->
                 <div class="bg-emerald-50 dark:bg-emerald-950/30 p-6 rounded-2xl border border-emerald-500/30 space-y-4">
                     <h3 class="text-xl font-bold flex items-center gap-2 text-emerald-800 dark:text-emerald-300">
                         <i data-lucide="bell-ring" class="w-6 h-6"></i> Buat & Kirim Jadwal Pengingat Penimbangan Sampah
@@ -535,7 +505,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1">Waktu & Tanggal</label>
-                            <input type="text" id="notifWaktu" placeholder="Minggu, 10 Nov 2026 Pukul 08.00 WIB" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800" required>
+                            <input type="text" id="notifWaktu" placeholder="Minggu, 10 Nov Pukul 08.00 WIB" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800" required>
                         </div>
                         <div class="flex items-end">
                             <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
@@ -545,7 +515,7 @@
                     </form>
                 </div>
 
-                <!-- FORM 2: UPLOAD KONTEN GALERI / ARTIKEL -->
+                <!-- FORM 2: UPLOAD KONTEN -->
                 <div class="space-y-4">
                     <h3 class="text-xl font-bold flex items-center gap-2">
                         <i data-lucide="upload-cloud" class="w-6 h-6 text-emerald-600"></i> Unggah Dokumentasi Galeri / Artikel KWT
@@ -561,7 +531,7 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium mb-1">Judul / Keterangan</label>
-                                <input type="text" id="hostContentTitle" placeholder="Contoh: Kerja Bakti Pembersihan Taman KWT RT 04" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800" required>
+                                <input type="text" id="hostContentTitle" placeholder="Contoh: Kerja Bakti Taman KWT RT 04" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800" required>
                             </div>
                         </div>
                         <div>
@@ -581,18 +551,16 @@
                 <!-- Kelola / Hapus Konten -->
                 <div class="space-y-4 pt-6 border-t border-gray-200 dark:border-gray-700">
                     <h3 class="text-xl font-bold">Dikelola oleh Host (Daftar Postingan Aktif)</h3>
-                    <div id="hostManagedList" class="space-y-2">
-                        <!-- Diisi via JS -->
-                    </div>
+                    <div id="hostManagedList" class="space-y-2"></div>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- MODAL AUTH (LOGIN / REGISTER) -->
+    <!-- MODAL AUTH -->
     <div id="authModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card max-w-md w-full p-8 rounded-3xl shadow-2xl relative border border-emerald-500/30 space-y-6">
+        <div class="glass-card max-w-md w-full p-8 rounded-3xl shadow-2xl relative border border-emerald-500/30 space-y-6 bg-white dark:bg-gray-900">
             <button onclick="closeAuthModal()" class="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"><i data-lucide="x" class="w-5 h-5"></i></button>
             
             <div class="text-center space-y-2">
@@ -653,16 +621,13 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Inisialisasi Lucide Icons
         lucide.createIcons();
 
-        // Data Store & State
         let currentTab = 'beranda';
-        let authMode = 'login'; // 'login' or 'register'
+        let authMode = 'login';
         let currentUser = JSON.parse(localStorage.getItem('ecoActiveUser')) || null;
         let chartInstance = null;
 
-        // Data Direktori Sampah
         const direktoriSampahData = [
             { nama: "Botol Plastik Mineral", kategori: "Bank Sampah (Anorganik)", jenis: "Plastik", desc: "Bersihkan tutup dan label, pipihkan lalu kumpulkan." },
             { nama: "Kardus & Kotak Karton", kategori: "Bank Sampah (Kertas)", jenis: "Kertas", desc: "Ikat rapi agar tidak berserakan saat penimbangan." },
@@ -672,7 +637,6 @@
             { nama: "Sisa Nasi & Makanan Basah", kategori: "Komposting KWT (Organik)", jenis: "Organik", desc: "Bahan utama pembuatan pupuk cair organik (PCO)." }
         ];
 
-        // Data Price List Bank Sampah
         const priceListData = [
             { nama: "Botol Plastik PET Bersih", kategori: "Plastik", harga: "Rp 2.500", ket: "Kondisi bersih & tutup terlepas" },
             { nama: "Kertas Kardus / Dus", kategori: "Kertas", harga: "Rp 1.500", ket: "Kering & diikat rapi" },
@@ -682,7 +646,6 @@
             { nama: "Plastik Campur / Ember", kategori: "Plastik", harga: "Rp 1.000", ket: "Ember pecah atau perabot plastik" }
         ];
 
-        // Data Kuis Interaktif
         const kuisData = [
             {
                 tanya: "Sampah sisa sayur dan kulit buah sebaiknya dibuang ke mana dalam program RT 04?",
@@ -699,34 +662,29 @@
         ];
         let currentKuisIndex = 0;
 
-        // Inisialisasi Aplikasi saat Load
         window.addEventListener('DOMContentLoaded', () => {
             renderAuthWidget();
             renderDirektori(direktoriSampahData);
             renderPriceList();
             renderKuis();
             renderGaleri();
+            renderKompostingArticles();
             renderHostManagedList();
             renderNotifications();
             
-            // Cek tema awal
             if (localStorage.getItem('theme') === 'dark') {
                 document.documentElement.classList.add('dark');
             }
         });
 
-        // Tab Switching Logic dengan Validasi Akses Warga
         function switchTab(tabId) {
-            // Tab yang bebas diakses tanpa login: 'beranda', 'edukasi', 'galeri'
             const publicTabs = ['beranda', 'edukasi', 'galeri'];
 
             if (!publicTabs.includes(tabId) && !currentUser) {
-                // Jika belum login dan mencoba buka tab privat, buka modal auth
                 openAuthModal();
                 return;
             }
 
-            // Jika mencoba buka tab host tapi bukan host
             if (tabId === 'host' && (!currentUser || currentUser.role !== 'admin')) {
                 alert('Akses ditolak! Menu ini khusus untuk Host / Pengurus RT.');
                 return;
@@ -736,7 +694,6 @@
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
 
-            // Update active nav styling
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 if(btn.getAttribute('data-tab') === tabId) {
                     btn.classList.add('bg-emerald-600/10', 'text-emerald-700', 'dark:text-emerald-400', 'font-semibold');
@@ -745,7 +702,6 @@
                 }
             });
 
-            // Jika buka tab tabungan, render data tabungan user
             if (tabId === 'tabungan' && currentUser) {
                 renderUserTabungan();
             }
@@ -761,13 +717,10 @@
             }
         }
 
-        // Toggle Mobile Menu
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
+            document.getElementById('mobileMenu').classList.toggle('hidden');
         }
 
-        // Toggle Theme (Dark / Light)
         function toggleTheme() {
             const html = document.documentElement;
             if (html.classList.contains('dark')) {
@@ -779,7 +732,6 @@
             }
         }
 
-        // Auth Modal Handlers
         function openAuthModal() {
             document.getElementById('authModal').classList.remove('hidden');
         }
@@ -823,13 +775,11 @@
             }
         }
 
-        // Handle Auth Submit (Login / Register)
         function handleAuthSubmit(e) {
             e.preventDefault();
             const email = document.getElementById('authEmail').value.trim();
             const password = document.getElementById('authPassword').value;
 
-            // Cek jika login sebagai Host
             if (email === "host.rt@ecowilayah.com" && password === "admin123") {
                 currentUser = {
                     nama: "Host / Pengurus RT 04",
@@ -864,7 +814,7 @@
                     nik: nik,
                     alamat: alamat,
                     jmlKeluarga: jml,
-                    transaksi: [] // Riwayat setoran awal kosong
+                    transaksi: []
                 };
                 localStorage.setItem('ecoActiveUser', JSON.stringify(currentUser));
                 alert("Akun berhasil dibuat!");
@@ -872,11 +822,8 @@
                 renderAuthWidget();
                 switchTab('tabungan');
             } else {
-                // Mode Login Warga
-                // Cek apakah ada data di localStorage atau buat dummy
                 let savedWarga = JSON.parse(localStorage.getItem('ecoWarga_' + email));
                 if (!savedWarga) {
-                    // Jika belum terdaftar, buatkan akun default berdasarkan email
                     savedWarga = {
                         nama: email.split('@')[0].toUpperCase(),
                         email: email,
@@ -898,7 +845,6 @@
             }
         }
 
-        // Render Auth Widget di Navbar
         function renderAuthWidget() {
             const widget = document.getElementById('authWidget');
             const navHostBtn = document.getElementById('navHostBtn');
@@ -948,14 +894,13 @@
             alert("Anda telah keluar dari akun.");
         }
 
-        // Render Direktori Sampah
         function renderDirektori(data) {
             const container = document.getElementById('direktoriList');
             container.innerHTML = data.map(item => `
                 <div class="glass-card p-6 rounded-3xl shadow-lg space-y-3 border-l-4 ${item.kategori.includes('Bank') ? 'border-emerald-500' : 'border-teal-500'}">
                     <span class="text-xs font-bold px-3 py-1 rounded-full ${item.kategori.includes('Bank') ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300' : 'bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300'}">${item.kategori}</span>
                     <h3 class="text-xl font-bold">${item.nama}</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">${item.desc}</p>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">${item.desc}</p>
                 </div>
             `).join('');
             lucide.createIcons();
@@ -971,7 +916,6 @@
             renderDirektori(filtered);
         }
 
-        // Render Price List
         function renderPriceList() {
             const tbody = document.getElementById('priceListTable');
             tbody.innerHTML = priceListData.map(item => `
@@ -979,12 +923,11 @@
                     <td class="p-4 font-bold">${item.nama}</td>
                     <td class="p-4"><span class="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 px-2.5 py-1 rounded-full text-xs font-bold">${item.kategori}</span></td>
                     <td class="p-4 font-bold text-emerald-600">${item.harga}</td>
-                    <td class="p-4 text-gray-500 text-xs">${item.ket}</td>
+                    <td class="p-4 text-gray-600 dark:text-gray-400 text-xs">${item.ket}</td>
                 </tr>
             `).join('');
         }
 
-        // Render Kuis Interaktif
         function renderKuis() {
             const container = document.getElementById('quizContainer');
             const q = kuisData[currentKuisIndex];
@@ -993,7 +936,7 @@
                     <div class="text-center space-y-4 py-8">
                         <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">🎉</div>
                         <h3 class="text-2xl font-bold">Selamat! Anda telah menyelesaikan kuis</h3>
-                        <p class="text-sm text-gray-500">Terima kasih telah berpartisipasi dalam pemahaman pengelolaan sampah RT 04.</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Terima kasih telah berpartisipasi dalam pemahaman pengelolaan sampah RT 04.</p>
                         <button onclick="currentKuisIndex=0; renderKuis();" class="bg-emerald-600 text-white font-bold px-6 py-2.5 rounded-xl">Ulangi Kuis</button>
                     </div>
                 `;
@@ -1031,7 +974,6 @@
             }
         }
 
-        // Render Tabungan User & Chart.js
         function renderUserTabungan() {
             if (!currentUser) return;
 
@@ -1051,7 +993,6 @@
             document.getElementById('statTotalSaldo').innerText = "Rp " + totalSaldo.toLocaleString('id-ID');
             document.getElementById('statTotalTransaksi').innerText = transaksi.length;
 
-            // Render Tabel Riwayat
             const tbody = document.getElementById('riwayatTableBody');
             if (transaksi.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-gray-500">Belum ada riwayat setoran sampah.</td></tr>`;
@@ -1066,7 +1007,6 @@
                 `).join('');
             }
 
-            // Render Chart.js
             renderChart(transaksi);
         }
 
@@ -1105,7 +1045,6 @@
             });
         }
 
-        // Handle Setor Sampah Warga
         function handleSetorSampah(e) {
             e.preventDefault();
             const jenisVal = document.getElementById('setorJenis').value.split('|');
@@ -1130,7 +1069,6 @@
             currentUser.transaksi.push(newTrx);
 
             localStorage.setItem('ecoActiveUser', JSON.stringify(currentUser));
-            // Simpan juga di localStorage database warga umum
             localStorage.setItem('ecoWarga_' + currentUser.email, JSON.stringify(currentUser));
 
             alert(`Setoran ${namaJenis} seberat ${berat} Kg berhasil dicatat! Saldo bertambah Rp ${nilaiTotal.toLocaleString('id-ID')}`);
@@ -1138,7 +1076,6 @@
             renderUserTabungan();
         }
 
-        // Galeri & Dynamic Posts Storage
         const defaultGaleri = [
             { id: 1, title: "Penimbangan Rutin Bank Sampah RT 04", image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80", desc: "Warga antusias menyetorkan sampah terpilah didampingi pengurus RT.", date: "10 Okt 2026", type: "galeri" },
             { id: 2, title: "Panen Sayur Organik Taman KWT", image: "https://images.unsplash.com/photo-1592417817098-8f3d692a4855?auto=format&fit=crop&w=600&q=80", desc: "Hasil pemupukan kompos organik mandiri dari sampah rumah tangga.", date: "18 Okt 2026", type: "galeri" },
@@ -1158,7 +1095,7 @@
                     <div class="p-6 space-y-2">
                         <span class="text-xs text-emerald-600 font-bold">${p.date}</span>
                         <h3 class="text-xl font-bold">${p.title}</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">${p.desc}</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">${p.desc}</p>
                     </div>
                 </div>
             `).join('');
@@ -1173,13 +1110,12 @@
                     <div class="p-6 space-y-2">
                         <span class="text-xs text-teal-600 font-bold">${p.date}</span>
                         <h3 class="text-xl font-bold">${p.title}</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">${p.desc}</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">${p.desc}</p>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Host Upload Handler
         function handleHostUpload(e) {
             e.preventDefault();
             const type = document.getElementById('hostContentType').value;
@@ -1233,7 +1169,6 @@
             alert("Konten berhasil dihapus.");
         }
 
-        // FITUR BARU: Host Mengirim Jadwal Pengingat ke Warga
         function handleKirimPengingat(e) {
             e.preventDefault();
             const judul = document.getElementById('notifJudul').value;
@@ -1257,7 +1192,7 @@
 
         function getPengingatList() {
             return JSON.parse(localStorage.getItem('ecoPengingatList')) || [
-                { id: 1, judul: "Penimbangan Bulanan Bank Sampah RT 04", waktu: "Minggu, 15 Nov 2026 Pulul 08.00 WIB", tanggal: "05 Nov 2026" }
+                { id: 1, judul: "Penimbangan Bulanan Bank Sampah RT 04", waktu: "Minggu, 15 Nov Pukul 08.00 WIB", tanggal: "05 Nov 2026" }
             ];
         }
 
@@ -1274,7 +1209,7 @@
                 list.innerHTML = pengingat.map(n => `
                     <div class="p-3 rounded-xl bg-emerald-50 dark:bg-gray-800 border border-emerald-500/20 space-y-1">
                         <h5 class="font-bold text-xs text-emerald-700 dark:text-emerald-300">${n.judul}</h5>
-                        <p class="text-xs text-gray-600 dark:text-gray-300">📅 ${n.waktu}</p>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">📅 ${n.waktu}</p>
                         <span class="text-[10px] text-gray-400">Disiarkan: ${n.tanggal}</span>
                     </div>
                 `).join('');
@@ -1286,8 +1221,7 @@
         }
 
         function toggleNotificationDropdown() {
-            const dropdown = document.getElementById('notifDropdown');
-            dropdown.classList.toggle('hidden');
+            document.getElementById('notifDropdown').classList.toggle('hidden');
         }
     </script>
 </body>
