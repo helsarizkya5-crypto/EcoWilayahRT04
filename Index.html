@@ -11,261 +11,227 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .animate-float { animation: floatSlow 6s ease-in-out infinite; }
+        .animate-glow { animation: pulseGlow 4s ease-in-out infinite; }
+        
         .glass-card {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(209, 213, 219, 0.8);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(209, 213, 219, 0.4);
         }
         .dark .glass-card {
-            background: rgba(15, 23, 42, 0.96);
-            border: 1px solid rgba(51, 65, 85, 0.8);
+            background: rgba(17, 24, 39, 0.85);
+            border: 1px solid rgba(55, 65, 81, 0.4);
         }
     </style>
 </head>
-<body class="bg-slate-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen font-sans transition-colors duration-300 relative overflow-x-hidden">
+<body class="bg-emerald-50/50 dark:bg-gray-950 text-gray-800 dark:text-gray-100 min-h-screen font-sans transition-colors duration-300 relative overflow-x-hidden">
+
+    <!-- Ambient Animated Background Elements -->
+    <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-400/20 dark:bg-emerald-600/10 rounded-full blur-3xl pointer-events-none animate-glow"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-teal-400/20 dark:bg-teal-600/10 rounded-full blur-3xl pointer-events-none animate-glow" style="animation-delay: 2s;"></div>
+
+    <!-- Floating Deco Elements -->
+    <div class="fixed top-20 right-10 text-emerald-500/30 dark:text-emerald-400/20 pointer-events-none animate-float hidden lg:block">
+        <i data-lucide="leaf" class="w-16 h-16"></i>
+    </div>
+    <div class="fixed bottom-20 left-10 text-teal-500/30 dark:text-teal-400/20 pointer-events-none animate-float hidden lg:block" style="animation-delay: 3s;">
+        <i data-lucide="sprout" class="w-16 h-16"></i>
+    </div>
 
     <!-- HEADER & NAVBAR DENGAN HAMBURGER MENU (GARIS 3) -->
-    <header class="sticky top-0 z-50 glass-card border-b border-emerald-200 dark:border-gray-800 shadow-sm">
+    <header class="sticky top-0 z-50 glass-card border-b border-emerald-100 dark:border-gray-800 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
-            <!-- Left: Hamburger Button (Garis 3) & Brand Logo -->
             <div class="flex items-center gap-4">
-                <!-- Tombol Menu Garis 3 -->
-                <button onclick="toggleSidebarMenu()" class="p-2.5 rounded-2xl bg-emerald-100 dark:bg-gray-800 hover:bg-emerald-200 dark:hover:bg-gray-700 text-emerald-800 dark:text-emerald-300 transition shadow-sm flex items-center gap-2">
+                <button onclick="toggleSidebarMenu()" class="p-2.5 rounded-2xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-700 dark:text-emerald-300 transition flex items-center gap-2 shadow-sm">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                     <span class="text-xs font-bold hidden sm:inline">Menu</span>
                 </button>
 
-                <!-- Logo -->
                 <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('beranda')">
                     <div class="bg-emerald-600 text-white p-2.5 rounded-2xl shadow-lg shadow-emerald-600/30 flex items-center justify-center">
-                        <i data-lucide="recycle" class="w-6 h-6"></i>
+                        <i data-lucide="recycle" class="w-7 h-7"></i>
                     </div>
                     <div>
                         <h1 class="text-xl font-black tracking-tight bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">EcoWilayah</h1>
-                        <p class="text-xs font-semibold text-emerald-700 dark:text-emerald-400">RT 04 / RW 01 Kembangarum, Semarang</p>
+                        <p class="text-xs font-medium text-emerald-700 dark:text-emerald-400">RT 04 / RW 01 Kembangarum, Semarang</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Controls: Notifikasi, Theme, User Profile -->
             <div class="flex items-center gap-3">
-                <!-- Notification Bell -->
                 <div id="notificationContainer" class="relative hidden">
-                    <button onclick="toggleNotificationDropdown()" class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-emerald-100 dark:hover:bg-gray-700 transition relative">
+                    <button onclick="toggleNotificationDropdown()" class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-emerald-100 transition relative">
                         <i data-lucide="bell" class="w-5 h-5"></i>
                         <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
                     </button>
-                    <!-- Dropdown Notif -->
-                    <div id="notifDropdown" class="absolute right-0 mt-2 w-80 glass-card rounded-2xl shadow-xl p-4 hidden z-50 border border-emerald-500/20">
+                    <div id="notifDropdown" class="absolute right-0 mt-2 w-80 glass-card rounded-2xl shadow-xl p-4 hidden z-50">
                         <div class="flex justify-between items-center mb-3 pb-2 border-b border-gray-200 dark:border-gray-700">
-                            <h4 class="font-bold text-sm flex items-center gap-2"><i data-lucide="bell" class="w-4 h-4 text-emerald-600"></i> Pengingat Bank Sampah</h4>
-                            <span class="text-xs text-gray-500" id="notifCountText">0 Pengingat</span>
+                            <h4 class="font-bold text-sm">Pengingat Penimbangan</h4>
                         </div>
-                        <div id="notifList" class="space-y-2 max-h-60 overflow-y-auto">
-                            <p class="text-xs text-gray-500 text-center py-4">Belum ada pengingat dari Host.</p>
+                        <div id="notifList" class="space-y-2 max-h-60 overflow-y-auto text-xs">
+                            <p class="text-gray-500 text-center py-4">Belum ada pengingat.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Mode Terang / Gelap -->
-                <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-emerald-100 dark:hover:bg-gray-700 transition">
+                <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-emerald-100 transition">
                     <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
                     <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-gray-600"></i>
                 </button>
 
-                <!-- Profile Widget -->
                 <div id="authWidget" class="flex items-center gap-3"></div>
             </div>
         </div>
     </header>
 
-    <!-- SIDEBAR NAVIGATION DRAWER (Menu Garis 3) -->
-    <div id="sidebarMenu" class="fixed inset-y-0 left-0 w-80 bg-white dark:bg-gray-900 z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out border-r border-gray-200 dark:border-gray-800 flex flex-col justify-between p-6">
+    <!-- SIDEBAR DRAWER (MENU GARIS 3) -->
+    <div id="sidebarMenu" class="fixed inset-y-0 left-0 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out border-r border-gray-200 dark:border-gray-800 flex flex-col justify-between p-6">
         <div class="space-y-6">
             <div class="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-800">
                 <div class="flex items-center gap-2">
                     <i data-lucide="layers" class="w-6 h-6 text-emerald-600"></i>
-                    <h3 class="font-black text-lg">Menu Utama</h3>
+                    <h3 class="font-black text-lg">Navigasi Utama</h3>
                 </div>
-                <button onclick="toggleSidebarMenu()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
+                <button onclick="toggleSidebarMenu()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
-
-            <nav class="space-y-1.5 font-medium text-sm">
-                <button onclick="switchTab('beranda'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3 font-semibold transition">
-                    <i data-lucide="home" class="w-5 h-5 text-emerald-600"></i> Beranda
-                </button>
-                <button onclick="switchTab('edukasi'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3 font-semibold transition">
-                    <i data-lucide="book-open" class="w-5 h-5 text-emerald-600"></i> Edukasi Sampah
-                </button>
-                <button onclick="switchTab('direktori'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3 font-semibold transition">
-                    <i data-lucide="search" class="w-5 h-5 text-emerald-600"></i> Cek Jenis Sampah
-                </button>
-                <button onclick="switchTab('panduan'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3 font-semibold transition">
-                    <i data-lucide="tag" class="w-5 h-5 text-emerald-600"></i> Price List & Panduan
-                </button>
-                <button onclick="switchTab('komposting'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3 font-semibold transition">
-                    <i data-lucide="flower-2" class="w-5 h-5 text-emerald-600"></i> Komposting & Taman KWT
-                </button>
-                <button onclick="switchTab('kuis'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3 font-semibold transition">
-                    <i data-lucide="help-circle" class="w-5 h-5 text-emerald-600"></i> Kuis Interaktif
-                </button>
-                <button onclick="switchTab('tabungan'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3 font-semibold transition">
-                    <i data-lucide="wallet" class="w-5 h-5 text-emerald-600"></i> Buku Tabungan Digital
-                </button>
-                <button onclick="switchTab('galeri'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3 font-semibold transition">
-                    <i data-lucide="image" class="w-5 h-5 text-emerald-600"></i> Galeri Kegiatan
-                </button>
-                <button id="sidebarHostBtn" onclick="switchTab('host'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-emerald-600/10 text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-3 transition hidden">
-                    <i data-lucide="shield-check" class="w-5 h-5"></i> Panel Control Host
-                </button>
+            <nav class="space-y-2 font-medium text-sm">
+                <button onclick="switchTab('beranda'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3"><i data-lucide="home" class="w-5 h-5 text-emerald-600"></i> Beranda</button>
+                <button onclick="switchTab('edukasi'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3"><i data-lucide="book-open" class="w-5 h-5 text-emerald-600"></i> Edukasi Sampah</button>
+                <button onclick="switchTab('direktori'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3"><i data-lucide="search" class="w-5 h-5 text-emerald-600"></i> Cek Jenis Sampah</button>
+                <button onclick="switchTab('panduan'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3"><i data-lucide="tag" class="w-5 h-5 text-emerald-600"></i> Price List & Panduan</button>
+                <button onclick="switchTab('komposting'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3"><i data-lucide="flower-2" class="w-5 h-5 text-emerald-600"></i> Komposting & KWT</button>
+                <button onclick="switchTab('kuis'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3"><i data-lucide="help-circle" class="w-5 h-5 text-emerald-600"></i> Kuis Interaktif</button>
+                <button onclick="switchTab('tabungan'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3"><i data-lucide="wallet" class="w-5 h-5 text-emerald-600"></i> Buku Tabungan Digital</button>
+                <button onclick="switchTab('galeri'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl hover:bg-emerald-50 dark:hover:bg-gray-800 flex items-center gap-3"><i data-lucide="image" class="w-5 h-5 text-emerald-600"></i> Galeri Kegiatan</button>
+                <button id="sidebarHostBtn" onclick="switchTab('host'); toggleSidebarMenu();" class="w-full text-left px-4 py-3 rounded-xl bg-emerald-600/10 text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-3 hidden"><i data-lucide="shield-check" class="w-5 h-5"></i> Panel Host</button>
             </nav>
         </div>
-
-        <div class="pt-4 border-t border-gray-200 dark:border-gray-800 text-xs text-gray-500">
-            <p>EcoWilayah RT 04 / RW 01 Kembangarum</p>
-        </div>
+        <div class="pt-4 border-t border-gray-200 dark:border-gray-800 text-xs text-gray-500">EcoWilayah RT 04 / RW 01 Kembangarum</div>
     </div>
-    <!-- Overlay backdrop sidebar -->
     <div id="sidebarOverlay" onclick="toggleSidebarMenu()" class="fixed inset-0 bg-black/50 z-40 hidden"></div>
 
-    <!-- MAIN CONTENT -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
 
         <!-- TAB 1: BERANDA -->
         <section id="tab-beranda" class="tab-content space-y-12">
-            <!-- Hero Banner -->
             <div class="relative glass-card rounded-3xl p-8 sm:p-12 overflow-hidden shadow-xl border border-emerald-500/20">
                 <div class="relative z-10 max-w-2xl space-y-6">
+                    <span class="inline-flex items-center gap-2 bg-emerald-600/10 text-emerald-700 dark:text-emerald-300 font-semibold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i> RT 04 / RW 01 Kelurahan Kembangarum
+                    </span>
                     <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-                        Transformasi Sampah Jadi Berkah & Hijau Wilayah Kita
+                        Transformasi Sampah Jadi <span class="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Berkah & Hijau Wilayah Kita</span>
                     </h2>
-                    <p class="text-gray-700 dark:text-gray-300 text-base sm:text-lg font-medium">
-                        Platform integrasi digitalisasi **Bank Sampah RT 04** dan **Taman Kelompok Wanita Tani (KWT)** Kembangarum, Semarang Barat.
+                    <p class="text-gray-600 dark:text-gray-300 text-base sm:text-lg">
+                        Platform digitalisasi Bank Sampah dan Taman Kelompok Wanita Tani (KWT). Kelola tabungan sampah, kompos organik, dan wujudkan lingkungan asri bersama.
                     </p>
                     <div class="flex flex-wrap gap-4 pt-2">
                         <button onclick="checkAuthAndSwitch('tabungan')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-2xl shadow-lg shadow-emerald-600/30 transition flex items-center gap-2">
                             <i data-lucide="wallet" class="w-5 h-5"></i> Buka Buku Tabungan Sampah
                         </button>
-                        <button onclick="switchTab('edukasi')" class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-bold px-6 py-3 rounded-2xl transition flex items-center gap-2 shadow-sm">
-                            <i data-lucide="book-open" class="w-5 h-5"></i> Pelajari Edukasi Sampah
+                        <button onclick="switchTab('edukasi')" class="bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 font-bold px-6 py-3 rounded-2xl transition flex items-center gap-2">
+                            <i data-lucide="book-open" class="w-5 h-5"></i> Pelajari Edukasi
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- STATISTIK SEMUA DARI NOL (0) -->
+            <!-- STATISTIK BERMULA DARI NOL (0) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="glass-card p-6 rounded-3xl shadow-lg border-l-4 border-emerald-500">
                     <div class="flex items-center justify-between mb-4">
                         <div class="p-3 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 rounded-2xl"><i data-lucide="recycle" class="w-6 h-6"></i></div>
-                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-2.5 py-1 rounded-full">Realtime Data</span>
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Aktif</span>
                     </div>
-                    <h3 id="mainTotalSampah" class="text-3xl font-black">0 Kg</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 font-medium">Total Didaur Ulang</p>
+                    <h3 class="text-3xl font-black">0 Kg</h3>
+                    <p class="text-sm text-gray-500 mt-1">Total Sampah Dikelola</p>
                 </div>
                 <div class="glass-card p-6 rounded-3xl shadow-lg border-l-4 border-teal-500">
                     <div class="flex items-center justify-between mb-4">
                         <div class="p-3 bg-teal-100 dark:bg-teal-900/40 text-teal-600 rounded-2xl"><i data-lucide="flower-2" class="w-6 h-6"></i></div>
-                        <span class="text-xs font-bold text-teal-600 bg-teal-50 dark:bg-teal-900/20 px-2.5 py-1 rounded-full">KWT Organik</span>
+                        <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full">KWT</span>
                     </div>
-                    <h3 id="mainTotalKompos" class="text-3xl font-black">0 Kg</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 font-medium">Kompos KWT Dihasilkan</p>
+                    <h3 class="text-3xl font-black">0 Kg</h3>
+                    <p class="text-sm text-gray-500 mt-1">Kompos Organik Taman</p>
                 </div>
                 <div class="glass-card p-6 rounded-3xl shadow-lg border-l-4 border-cyan-500">
                     <div class="flex items-center justify-between mb-4">
                         <div class="p-3 bg-cyan-100 dark:bg-cyan-900/40 text-cyan-600 rounded-2xl"><i data-lucide="users" class="w-6 h-6"></i></div>
-                        <span class="text-xs font-bold text-cyan-600 bg-cyan-50 dark:bg-cyan-900/20 px-2.5 py-1 rounded-full">Anggota</span>
+                        <span class="text-xs font-bold text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded-full">Warga</span>
                     </div>
-                    <h3 id="mainTotalKK" class="text-3xl font-black">0 KK</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 font-medium">Warga Terdaftar</p>
+                    <h3 class="text-3xl font-black">0 KK</h3>
+                    <p class="text-sm text-gray-500 mt-1">Warga Terdaftar</p>
                 </div>
                 <div class="glass-card p-6 rounded-3xl shadow-lg border-l-4 border-amber-500">
                     <div class="flex items-center justify-between mb-4">
                         <div class="p-3 bg-amber-100 dark:bg-amber-900/40 text-amber-600 rounded-2xl"><i data-lucide="coins" class="w-6 h-6"></i></div>
-                        <span class="text-xs font-bold text-amber-600 bg-amber-50 dark:bg-amber-900/20 px-2.5 py-1 rounded-full">Kas Tabungan</span>
+                        <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full">Saldo</span>
                     </div>
-                    <h3 id="mainTotalKas" class="text-3xl font-black">Rp 0</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 font-medium">Total Saldo Terkumpul</p>
+                    <h3 class="text-3xl font-black">Rp 0</h3>
+                    <p class="text-sm text-gray-500 mt-1">Total Tabungan Saldo</p>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 2: EDUKASI SAMPAH -->
-        <section id="tab-edukasi" class="tab-content hidden space-y-12">
-            <div class="text-center max-w-3xl mx-auto space-y-4">
-                <h2 class="text-3xl sm:text-4xl font-black">Kondisi Sampah & Konsep 3R</h2>
-                <p class="text-gray-700 dark:text-gray-300">Pengelolaan sampah mandiri lingkungan RT 04 / RW 01 Kembangarum.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-card p-6 rounded-3xl shadow-lg space-y-3">
-                    <h3 class="text-xl font-bold text-emerald-600">1. Reduce</h3>
-                    <p class="text-sm text-gray-700 dark:text-gray-300">Mengurangi sampah kantong plastik belanja sekali pakai.</p>
-                </div>
-                <div class="glass-card p-6 rounded-3xl shadow-lg space-y-3">
-                    <h3 class="text-xl font-bold text-teal-600">2. Reuse</h3>
-                    <p class="text-sm text-gray-700 dark:text-gray-300">Memanfaatkan botol bekas untuk wadah pembibitan KWT.</p>
-                </div>
-                <div class="glass-card p-6 rounded-3xl shadow-lg space-y-3">
-                    <h3 class="text-xl font-bold text-cyan-600">3. Recycle</h3>
-                    <p class="text-sm text-gray-700 dark:text-gray-300">Setor ke Bank Sampah untuk didaur ulang menjadi saldo rupiah.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB DIREKTORI, PANDUAN, KOMPOSTING, KUIS, GALERI DIBIARKAN SAMA -->
-
-        <!-- TAB BUKU TABUNGAN (INTEGRASI GOOGLE SPREADSHEET) -->
+        <!-- TAB BUKU TABUNGAN (TERHUBUNG KE GOOGLE SHEETS) -->
         <section id="tab-tabungan" class="tab-content hidden space-y-8">
             <div class="flex justify-between items-center">
                 <div>
-                    <h2 class="text-3xl font-black">Buku Tabungan Digital</h2>
-                    <p class="text-gray-600 text-sm">Catat setoran sampah & terhubung otomatis ke Google Spreadsheet pemilik web.</p>
+                    <span class="bg-emerald-600/10 text-emerald-700 font-semibold px-4 py-1.5 rounded-full text-xs uppercase">Dashboard Warga</span>
+                    <h2 class="text-3xl font-black mt-2">Buku Tabungan Bank Sampah</h2>
+                    <p class="text-gray-500 text-sm">Catat setoran sampah mandiri. Terhubung langsung ke Google Spreadsheet Host.</p>
                 </div>
-                <div id="userWelcomeBadge"></div>
+                <div id="userWelcomeBadge" class="glass-card px-4 py-2 rounded-2xl flex items-center gap-3"></div>
             </div>
 
-            <!-- Form Input Setoran -->
-            <div class="glass-card p-6 rounded-3xl shadow-xl space-y-4 max-w-xl">
-                <h3 class="text-xl font-bold flex items-center gap-2"><i data-lucide="plus-circle" class="w-5 h-5 text-emerald-600"></i> Input Setoran Sampah Baru</h3>
-                
-                <form id="formSetorSampah" onsubmit="handleSetorSampah(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Pilih Jenis Sampah</label>
-                        <select id="setorJenis" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
-                            <option value="Botol Plastik PET|2500">Botol Plastik PET (Rp 2.500/kg)</option>
-                            <option value="Kertas Kardus|1500">Kertas Kardus (Rp 1.500/kg)</option>
-                            <option value="Minyak Jelantah|7000">Minyak Jelantah (Rp 7.000/L)</option>
-                            <option value="Besi Bekas|4000">Besi Bekas (Rp 4.000/kg)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Berat / Jumlah (Kg / Liter)</label>
-                        <input type="number" step="0.1" id="setorBerat" placeholder="Contoh: 2.5" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800" required>
-                    </div>
-                    <button type="submit" id="btnSimpanSetor" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition">
-                        Simpan & Kirim ke Google Sheets
-                    </button>
-                </form>
-            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="glass-card p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
+                    <h3 class="text-xl font-bold flex items-center gap-2"><i data-lucide="plus-circle" class="w-5 h-5 text-emerald-600"></i> Catat Setoran Baru</h3>
+                    <form id="formSetorSampah" onsubmit="handleSetorSampah(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Jenis Sampah</label>
+                            <select id="setorJenis" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
+                                <option value="Botol Plastik PET|2500">Botol Plastik PET (Rp 2.500/kg)</option>
+                                <option value="Kertas Kardus|1500">Kertas Kardus (Rp 1.500/kg)</option>
+                                <option value="Minyak Jelantah|7000">Minyak Jelantah (Rp 7.000/liter)</option>
+                                <option value="Besi Logam|4000">Besi Logam Bekas (Rp 4.000/kg)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Berat / Jumlah (Kg / Liter)</label>
+                            <input type="number" step="0.1" id="setorBerat" placeholder="Contoh: 3.5" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800" required>
+                        </div>
+                        <button type="submit" id="btnSimpanSetor" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition">
+                            Simpan & Kirim ke Google Sheets
+                        </button>
+                    </form>
+                </div>
 
-            <!-- Tabel Riwayat Setoran -->
-            <div class="glass-card p-6 rounded-3xl shadow-xl space-y-4">
-                <h3 class="text-xl font-bold">Riwayat Setoran Akun Anda</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-emerald-600 text-white text-xs uppercase">
-                                <th class="p-3">Tanggal</th>
-                                <th class="p-3">Jenis Sampah</th>
-                                <th class="p-3">Berat</th>
-                                <th class="p-3">Nilai Rupiah</th>
-                            </tr>
-                        </thead>
-                        <tbody id="riwayatTableBody" class="divide-y divide-gray-200 dark:divide-gray-800 text-sm"></tbody>
-                    </table>
+                <div class="lg:col-span-2 glass-card p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
+                    <h3 class="text-xl font-bold flex items-center gap-2"><i data-lucide="history" class="w-5 h-5 text-emerald-600"></i> Riwayat Setoran Anda</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-emerald-600 text-white text-xs uppercase tracking-wider">
+                                    <th class="p-3 font-semibold">Tanggal</th>
+                                    <th class="p-3 font-semibold">Jenis Sampah</th>
+                                    <th class="p-3 font-semibold">Berat</th>
+                                    <th class="p-3 font-semibold">Nilai Rupiah</th>
+                                </tr>
+                            </thead>
+                            <tbody id="riwayatTableBody" class="divide-y divide-gray-200 dark:divide-gray-800 text-sm"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -273,8 +239,8 @@
         <!-- TAB HOST -->
         <section id="tab-host" class="tab-content hidden space-y-8">
             <div class="glass-card p-8 rounded-3xl shadow-xl space-y-6">
-                <h2 class="text-2xl font-black">Panel Kontrol Host</h2>
-                <p class="text-sm text-gray-600">Data setoran warga terkirim otomatis ke Google Sheets milik Anda.</p>
+                <h2 class="text-3xl font-black">Panel Kontrol Host</h2>
+                <p class="text-sm text-gray-500">Data setoran warga otomatis masuk ke Google Spreadsheet Anda.</p>
             </div>
         </section>
 
@@ -282,47 +248,53 @@
 
     <!-- MODAL AUTH -->
     <div id="authModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card max-w-md w-full p-8 rounded-3xl shadow-2xl relative bg-white dark:bg-gray-900 space-y-4">
+        <div class="glass-card max-w-md w-full p-8 rounded-3xl shadow-2xl relative bg-white dark:bg-gray-900 space-y-6">
             <button onclick="closeAuthModal()" class="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-200"><i data-lucide="x" class="w-5 h-5"></i></button>
-            <h3 id="authModalTitle" class="text-2xl font-black text-center">Login Akun Warga</h3>
-            
-            <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
-                <div id="fieldNamaContainer" class="hidden">
-                    <label class="block text-xs font-medium mb-1">Nama Kepala Keluarga</label>
-                    <input type="text" id="regNama" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
+            <div class="text-center space-y-2">
+                <div class="bg-emerald-600 text-white w-12 h-12 rounded-2xl mx-auto flex items-center justify-center shadow-lg">
+                    <i data-lucide="lock" class="w-6 h-6"></i>
                 </div>
+                <h3 id="authModalTitle" class="text-2xl font-black">Login Akun Warga</h3>
+            </div>
+            <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-medium mb-1">Email</label>
-                    <input type="email" id="authEmail" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm" required>
+                    <input type="email" id="authEmail" placeholder="warga@gmail.com atau host.rt@ecowilayah.com" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm" required>
                 </div>
                 <div>
                     <label class="block text-xs font-medium mb-1">Kata Sandi</label>
-                    <input type="password" id="authPassword" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm" required>
+                    <input type="password" id="authPassword" placeholder="••••••••" class="w-full p-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm" required>
                 </div>
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm">Masuk</button>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition text-sm">Masuk Sekarang</button>
             </form>
         </div>
     </div>
 
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         lucide.createIcons();
 
-        // GOOGLE APPS SCRIPT WEBHOOK URL (GANTI DENGAN LINK WEB APP APPS SCRIPT-MU)
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_GANTI_DENGAN_URL_SCRIPT_KAMU/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwktrZNJtZw_YCMaOCRpVc09-D7-GYcy5n0LFZugLEEAvguP2jj4vihLkebshTPpWB0PQ/exec";
 
         let currentUser = JSON.parse(localStorage.getItem('ecoActiveUser')) || null;
 
+        window.addEventListener('DOMContentLoaded', () => {
+            renderAuthWidget();
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        });
+
         function toggleSidebarMenu() {
-            const sidebar = document.getElementById('sidebarMenu');
-            const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
+            document.getElementById('sidebarMenu').classList.toggle('-translate-x-full');
+            document.getElementById('sidebarOverlay').classList.toggle('hidden');
         }
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             const target = document.getElementById(`tab-${tabId}`);
             if (target) target.classList.remove('hidden');
+            if (tabId === 'tabungan' && currentUser) renderUserTabungan();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -331,18 +303,24 @@
             else switchTab(tabId);
         }
 
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
         function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
         function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
 
-        function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
-        }
-
-        // KIRIM DATA KE GOOGLE SPREADSHEET
         async function handleSetorSampah(e) {
             e.preventDefault();
             const btn = document.getElementById('btnSimpanSetor');
-            btn.innerText = "Mengirim data ke Google Sheets...";
+            btn.innerText = "Mengirim ke Google Sheets...";
             btn.disabled = true;
 
             const jenisVal = document.getElementById('setorJenis').value.split('|');
@@ -361,24 +339,20 @@
                 tanggal: tgl
             };
 
-            // Simpan lokal
             if (!currentUser.transaksi) currentUser.transaksi = [];
             currentUser.transaksi.push({ tanggal: tgl, jenis: namaJenis, berat: berat, nilai: nilaiTotal });
             localStorage.setItem('ecoActiveUser', JSON.stringify(currentUser));
 
-            // Kirim Webhook ke Google Spreadsheet jika URL disetting
-            if (!GOOGLE_SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbwktrZNJtZw_YCMaOCRpVc09-D7-GYcy5n0LFZugLEEAvguP2jj4vihLkebshTPpWB0PQ/exec")) {
-                try {
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                } catch (err) { console.log(err); }
-            }
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) { console.log(err); }
 
-            alert(`Setoran ${namaJenis} (${berat} Kg) sukses dicatat & terkirim ke Google Sheets!`);
+            alert(`Setoran ${namaJenis} (${berat} Kg) berhasil dicatat & masuk ke Google Sheets!`);
             document.getElementById('formSetorSampah').reset();
             btn.innerText = "Simpan & Kirim ke Google Sheets";
             btn.disabled = false;
@@ -387,25 +361,57 @@
 
         function renderUserTabungan() {
             if (!currentUser) return;
+            document.getElementById('userWelcomeBadge').innerHTML = `
+                <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center font-bold">${currentUser.nama.charAt(0)}</div>
+                <div><h4 class="font-bold text-sm">${currentUser.nama}</h4><p class="text-xs text-gray-500">${currentUser.email}</p></div>
+            `;
             const trx = currentUser.transaksi || [];
             const tbody = document.getElementById('riwayatTableBody');
-            tbody.innerHTML = trx.slice().reverse().map(t => `
-                <tr>
-                    <td class="p-3">${t.tanggal}</td>
-                    <td class="p-3 font-semibold">${t.jenis}</td>
-                    <td class="p-3">${t.berat} Kg</td>
-                    <td class="p-3 font-bold text-emerald-600">Rp ${t.nilai.toLocaleString('id-ID')}</td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = trx.length === 0 ? `<tr><td colspan="4" class="p-4 text-center text-gray-500">Belum ada riwayat setoran.</td></tr>` : 
+                trx.slice().reverse().map(t => `
+                    <tr class="hover:bg-emerald-50/50 transition">
+                        <td class="p-3">${t.tanggal}</td>
+                        <td class="p-3 font-semibold">${t.jenis}</td>
+                        <td class="p-3">${t.berat} Kg</td>
+                        <td class="p-3 font-bold text-emerald-600">Rp ${t.nilai.toLocaleString('id-ID')}</td>
+                    </tr>
+                `).join('');
         }
 
         function handleAuthSubmit(e) {
             e.preventDefault();
-            const email = document.getElementById('authEmail').value;
-            currentUser = { nama: email.split('@')[0], email: email, role: 'warga', transaksi: [] };
+            const email = document.getElementById('authEmail').value.trim();
+            const pass = document.getElementById('authPassword').value;
+
+            if (email === "host.rt@ecowilayah.com" && pass === "admin123") {
+                currentUser = { nama: "Host RT", email: email, role: "admin", transaksi: [] };
+            } else {
+                currentUser = { nama: email.split('@')[0].toUpperCase(), email: email, role: "warga", transaksi: [] };
+            }
             localStorage.setItem('ecoActiveUser', JSON.stringify(currentUser));
             closeAuthModal();
+            renderAuthWidget();
             switchTab('tabungan');
+        }
+
+        function renderAuthWidget() {
+            const widget = document.getElementById('authWidget');
+            const sidebarHost = document.getElementById('sidebarHostBtn');
+            if (currentUser) {
+                if (currentUser.role === 'admin') sidebarHost.classList.remove('hidden');
+                widget.innerHTML = `<button onclick="logout()" class="text-xs bg-red-500 text-white font-bold px-3 py-2 rounded-xl shadow">Keluar</button>`;
+            } else {
+                sidebarHost.classList.add('hidden');
+                widget.innerHTML = `<button onclick="openAuthModal()" class="bg-emerald-600 text-white font-bold px-4 py-2 rounded-xl text-sm shadow">Masuk</button>`;
+            }
+            lucide.createIcons();
+        }
+
+        function logout() {
+            localStorage.removeItem('ecoActiveUser');
+            currentUser = null;
+            renderAuthWidget();
+            switchTab('beranda');
         }
     </script>
 </body>
