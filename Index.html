@@ -116,7 +116,7 @@
         <!-- Top Header Bar -->
         <header class="sticky top-0 z-50 glass-card border-b border-slate-200/50 dark:border-slate-800/50 transition-colors">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                <!-- Brand Logo & Burger Toggle -->
+                <!-- Brand Logo & Drawer Toggle -->
                 <div class="flex items-center space-x-3">
                     <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl bg-slate-200/60 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200">
                         <i class="fa-solid fa-bars text-lg"></i>
@@ -154,7 +154,7 @@
         <!-- BODY WITH SIDEBAR & MAIN CONTENT LAYOUT -->
         <div class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex gap-6">
 
-            <!-- SIDEBAR NAVIGATION MENU (BURGER / RESPONSIVE) -->
+            <!-- SIDEBAR NAVIGATION MENU (PERMANENT & MOBILE ADAPTIVE) -->
             <aside id="mainSidebar" class="w-64 shrink-0 fixed lg:relative inset-y-0 left-0 z-40 bg-slate-100/90 dark:bg-slate-900/90 lg:bg-transparent lg:dark:bg-transparent backdrop-blur-xl lg:backdrop-blur-none p-4 lg:p-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 border-r border-slate-200/50 dark:border-slate-800/50 lg:border-none flex flex-col justify-between">
                 
                 <div class="space-y-4">
@@ -189,7 +189,7 @@
                             <i class="fa-solid fa-images w-5 text-center text-emerald-500"></i> Galeri Kegiatan
                         </button>
 
-                        <!-- HOST PANEL MENU -->
+                        <!-- HOST/ADMIN CONTROL PANEL MENU (EXPLICITLY VISIBLE) -->
                         <div class="pt-3 mt-3 border-t border-slate-200 dark:border-slate-800">
                             <button onclick="handleHostPanelClick()" class="nav-btn w-full text-left px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600/20 to-teak-500/20 hover:from-emerald-600/30 hover:to-teak-500/30 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-500/30 shadow-sm transition flex items-center justify-between" id="nav-admin">
                                 <span class="flex items-center gap-2">
@@ -203,21 +203,21 @@
 
                 <!-- Info Box in Sidebar -->
                 <div class="glass-card p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs space-y-1 mt-6">
-                    <span class="font-bold text-emerald-600 dark:text-emerald-400 block"><i class="fa-solid fa-circle-info"></i> RT 04 / RW 01 Kembangarum</span>
-                    <p class="text-slate-500 dark:text-slate-400">Jadwal Penimbangan: Sabtu Pagi di Pos RT.</p>
+                    <span class="font-bold text-emerald-600 dark:text-emerald-400 block"><i class="fa-solid fa-circle-info"></i> RT 04 / RW 02</span>
+                    <p class="text-slate-500 dark:text-slate-400">Jadwal Penimbangan: Sabtu Pagi 08:00 - 11:00 WIB di Pos RT.</p>
                 </div>
             </aside>
 
             <!-- MAIN CONTENT AREA PANELS -->
             <main class="flex-grow w-full overflow-hidden">
 
-                <!-- SECTION 1: HOME / HERO PAGE (Stats set to 0 fresh start) -->
+                <!-- SECTION 1: HOME / HERO PAGE -->
                 <section id="tab-home" class="tab-panel space-y-8 animate-fade-in">
                     <div class="relative rounded-3xl overflow-hidden glass-card p-8 md:p-10 border border-emerald-500/20 shadow-2xl">
                         <div class="grid md:grid-cols-2 gap-8 items-center relative z-10">
                             <div class="space-y-6">
                                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider border border-emerald-500/20">
-                                    <i class="fa-solid fa-award"></i> RT 04 / RW 01 Kembangarum, Semarang Barat
+                                    <i class="fa-solid fa-award"></i> Portofolio Pramuka Garuda Penegak 2027
                                 </div>
                                 <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
                                     Transformasi Sampah Jadi <span class="bg-gradient-to-r from-emerald-500 to-teak-500 bg-clip-text text-transparent">Berkah & Hijau</span> Wilayah Kita
@@ -248,11 +248,11 @@
                                         <div class="grid grid-cols-2 gap-2 w-full text-left">
                                             <div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
                                                 <span class="text-[10px] text-slate-500 block">Total Didaur Ulang</span>
-                                                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400" id="heroTotalKg">0 Kg</span>
+                                                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400" id="heroTotalKg">1,240 Kg</span>
                                             </div>
                                             <div class="p-2 rounded-lg bg-teak-500/10 border border-teak-500/20">
                                                 <span class="text-[10px] text-slate-500 block">Kompos KWT</span>
-                                                <span class="text-xs font-bold text-teak-600 dark:text-teak-400" id="heroTotalKompos">0 Kg</span>
+                                                <span class="text-xs font-bold text-teak-600 dark:text-teak-400" id="heroTotalKompos">380 Kg</span>
                                             </div>
                                         </div>
                                     </div>
@@ -262,7 +262,7 @@
                     </div>
                 </section>
 
-                <!-- SECTION 2: EDUKASI -->
+                <!-- SECTION 2: EDUKASI SAMPAH INDONESIA & 3R -->
                 <section id="tab-edukasi" class="tab-panel hidden space-y-8">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Pusat Edukasi Sampah & Lingkungan</h2>
@@ -293,7 +293,7 @@
                     </div>
                 </section>
 
-                <!-- SECTION 3: DIREKTORI -->
+                <!-- SECTION 3: DIREKTORI SAMPAH -->
                 <section id="tab-direktori" class="tab-panel hidden space-y-6">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Cek & Direktori Jenis Sampah</h2>
@@ -305,10 +305,12 @@
                         <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
                     </div>
 
-                    <div id="trashDirectoryGrid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+                    <div id="trashDirectoryGrid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <!-- Populated by JS -->
+                    </div>
                 </section>
 
-                <!-- SECTION 4: PANDUAN -->
+                <!-- SECTION 4: PRICE LIST & PANDUAN -->
                 <section id="tab-panduan" class="tab-panel hidden space-y-6">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Panduan Setor & Price List</h2>
@@ -326,23 +328,27 @@
                                         <th class="p-3 text-right">Harga Estimasi / Kg</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-slate-200 dark:divide-slate-800" id="priceListTable"></tbody>
+                                <tbody class="divide-y divide-slate-200 dark:divide-slate-800" id="priceListTable">
+                                    <!-- Populated by JS -->
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </section>
 
-                <!-- SECTION 5: KOMPOSTING -->
+                <!-- SECTION 5: KOMPOSTING & KWT -->
                 <section id="tab-kompos" class="tab-panel hidden space-y-8">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Komposting & Kreasi Taman KWT</h2>
                         <p class="text-slate-500 dark:text-slate-400 text-sm">Pengolahan sampah organik dan daur ulang untuk Kelompok Wanita Tani.</p>
                     </div>
 
-                    <div id="dynamicArticlesGrid" class="grid md:grid-cols-3 gap-6"></div>
+                    <div id="dynamicArticlesGrid" class="grid md:grid-cols-3 gap-6">
+                        <!-- Static & Dynamic Uploaded Articles from Host -->
+                    </div>
                 </section>
 
-                <!-- SECTION 6: KUIS -->
+                <!-- SECTION 6: GAME KUIS INTERAKTIF -->
                 <section id="tab-kuis" class="tab-panel hidden space-y-6">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Zero Waste Challenge Quiz</h2>
@@ -376,12 +382,12 @@
                     </div>
                 </section>
 
-                <!-- SECTION 7: BUKU TABUNGAN DIGITAL (TERHUBUNG KE GSHEET) -->
+                <!-- SECTION 7: BUKU TABUNGAN DIGITAL -->
                 <section id="tab-tabungan" class="tab-panel hidden space-y-8">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                             <h2 class="text-2xl md:text-3xl font-black">Buku Tabungan Sampah Digital</h2>
-                            <p class="text-slate-500 dark:text-slate-400 text-xs">Setoran mandiri terkirim otomatis ke Google Spreadsheet pemilik web.</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs">Monitoring setoran pribadi dan grafik akumulasi RT.</p>
                         </div>
                         <button onclick="openDepositModal()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2">
                             <i class="fa-solid fa-plus-circle"></i> Input Setoran Sampah
@@ -399,7 +405,7 @@
                         </div>
                         <div class="glass-card p-4 rounded-2xl space-y-1">
                             <span class="text-[10px] text-slate-500 uppercase font-semibold">Total Sampah RT</span>
-                            <div class="text-xl font-black text-amber-500" id="statTotalKgRT">0 Kg</div>
+                            <div class="text-xl font-black text-amber-500">1,240 Kg</div>
                         </div>
                         <div class="glass-card p-4 rounded-2xl space-y-1">
                             <span class="text-[10px] text-slate-500 uppercase font-semibold">Akun Aktif</span>
@@ -432,7 +438,7 @@
                                         <th class="p-2.5">Jenis Sampah</th>
                                         <th class="p-2.5">Berat (Kg)</th>
                                         <th class="p-2.5">Nilai Rupiah</th>
-                                        <th class="p-2.5">Status GSheet</th>
+                                        <th class="p-2.5">Petugas RT</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-200 dark:divide-slate-800" id="transactionHistoryTable"></tbody>
@@ -441,17 +447,19 @@
                     </div>
                 </section>
 
-                <!-- SECTION 8: GALERI -->
+                <!-- SECTION 8: GALERI WARGA -->
                 <section id="tab-galeri" class="tab-panel hidden space-y-6">
                     <div class="text-center max-w-2xl mx-auto space-y-2">
                         <h2 class="text-3xl font-black">Galeri Warga & KWT</h2>
                         <p class="text-slate-500 dark:text-slate-400 text-sm">Dokumentasi kegiatan Bank Sampah, Taman KWT, dan kerja bakti RT.</p>
                     </div>
 
-                    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6" id="galleryGrid"></div>
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6" id="galleryGrid">
+                        <!-- Populated by JS -->
+                    </div>
                 </section>
 
-                <!-- SECTION 9: HOST ADMIN PANEL -->
+                <!-- SECTION 9: HOST / ADMIN CONTROL PANEL (EXCLUSIVE) -->
                 <section id="tab-admin" class="tab-panel hidden space-y-8">
                     <div class="glass-card p-6 md:p-8 rounded-3xl border-2 border-emerald-500/40 space-y-6 shadow-2xl relative overflow-hidden">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
@@ -486,6 +494,7 @@
                             <div>
                                 <label class="block text-xs font-bold mb-1">Link URL Gambar / Foto Dokumentasi</label>
                                 <input type="url" id="hostPostImageUrl" required placeholder="https://images.unsplash.com/photo-..." class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                <span class="text-[10px] text-slate-400">Tips: Salin link gambar langsung dari internet atau hosting foto gratis.</span>
                             </div>
 
                             <div>
@@ -498,6 +507,7 @@
                             </button>
                         </form>
 
+                        <!-- Uploaded Content Management Table -->
                         <div class="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-3">
                             <h3 class="font-bold text-sm">Daftar Konten Diterbitkan Host:</h3>
                             <div class="overflow-x-auto">
@@ -510,7 +520,9 @@
                                             <th class="p-2 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="hostContentManageTable" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+                                    <tbody id="hostContentManageTable" class="divide-y divide-slate-200 dark:divide-slate-800">
+                                        <!-- Populated via JS -->
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -524,26 +536,34 @@
         <footer class="glass-card mt-auto border-t border-slate-200 dark:border-slate-800 py-6">
             <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-1">
                 <p class="font-semibold">&copy; 2027 EcoWilayah - Portofolio Pramuka Garuda Golongan Penegak</p>
-                <p>Digitalisasi Bank Sampah & Kelompok Wanita Tani (KWT) Wilayah RT 04 / RW 01 Kembangarum</p>
+                <p>Digitalisasi Bank Sampah & Kelompok Wanita Tani (KWT) Wilayah RT 04 / RW 02</p>
             </div>
         </footer>
     </div>
 
-    <!-- MODAL 1: AUTHENTICATION -->
+    <!-- MODAL 1: AUTHENTICATION (WARGA & HOST LOGIN) -->
     <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden animate-fade-in">
         <div class="glass-card w-full max-w-md rounded-3xl p-6 space-y-5 shadow-2xl relative">
-            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
 
             <div class="text-center space-y-1">
                 <h3 class="text-2xl font-black">Masuk Akun EcoWilayah</h3>
                 <p class="text-xs text-slate-500">Pilih jenis akun Anda untuk melanjutkan.</p>
             </div>
 
+            <!-- Role Quick Buttons -->
             <div class="flex rounded-xl bg-slate-200 dark:bg-slate-800 p-1 gap-1">
-                <button onclick="switchLoginRole('warga')" id="roleWargaBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow"><i class="fa-solid fa-user"></i> Akun Warga</button>
-                <button onclick="switchLoginRole('host')" id="roleHostBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500"><i class="fa-solid fa-user-shield"></i> Host / Admin</button>
+                <button onclick="switchLoginRole('warga')" id="roleWargaBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow">
+                    <i class="fa-solid fa-user"></i> Akun Warga
+                </button>
+                <button onclick="switchLoginRole('host')" id="roleHostBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500">
+                    <i class="fa-solid fa-user-shield"></i> Host / Admin
+                </button>
             </div>
 
+            <!-- Login Form -->
             <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-3">
                 <div>
                     <label class="block text-xs font-bold mb-1">Email / NIK</label>
@@ -553,7 +573,9 @@
                     <label class="block text-xs font-bold mb-1">Kata Sandi</label>
                     <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                 </div>
-                <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition">Masuk Sekarang</button>
+                <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition">
+                    Masuk Sekarang
+                </button>
             </form>
 
             <div class="text-center pt-2 border-t border-slate-200 dark:border-slate-800">
@@ -562,21 +584,28 @@
         </div>
     </div>
 
-    <!-- MODAL 2: HOST VERIFICATION -->
+    <!-- MODAL 2: HOST ACCESS VERIFICATION FOR CITIZENS -->
     <div id="hostVerifyModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden animate-fade-in">
         <div class="glass-card w-full max-w-sm rounded-3xl p-6 space-y-4 text-center shadow-2xl relative">
             <button onclick="closeHostVerifyModal()" class="absolute top-4 right-4 text-slate-400 text-xl"><i class="fa-solid fa-xmark"></i></button>
-            <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center text-2xl"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center text-2xl">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
             <h3 class="text-xl font-bold">Verifikasi Akses Host</h3>
-            <p class="text-xs text-slate-500">Fitur ini khusus untuk Pengurus RT / Host. Silakan masuk menggunakan akun Host.</p>
+            <p class="text-xs text-slate-500">Fitur ini khusus untuk Pengurus RT / Host KWT. Silakan masuk menggunakan akun Host untuk mengakses panel kelola konten.</p>
+
             <div class="space-y-2 pt-2">
-                <button onclick="quickSwitchToHost()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md">Masuk Mode Host</button>
-                <button onclick="closeHostVerifyModal()" class="w-full py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs">Kembali</button>
+                <button onclick="quickSwitchToHost()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md">
+                    Masuk Mode Host (host.rt@ecowilayah.com)
+                </button>
+                <button onclick="closeHostVerifyModal()" class="w-full py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs">
+                    Kembali sebagai Warga
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 3: INPUT DEPOSIT -->
+    <!-- MODAL 3: INPUT SETORAN SAMPAH -->
     <div id="depositModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden animate-fade-in">
         <div class="glass-card w-full max-w-md rounded-3xl p-6 space-y-4 shadow-2xl relative">
             <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-slate-400 text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -600,25 +629,44 @@
                     <span class="font-bold">Hasil Rupiah:</span>
                     <span class="font-black text-emerald-600 dark:text-emerald-400" id="depCalculatedRp">Rp 0</span>
                 </div>
-                <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-md">Simpan & Kirim ke GSheet</button>
+                <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-md">Simpan Setoran</button>
             </form>
         </div>
     </div>
 
-    <!-- JAVASCRIPT APP LOGIC (GSHEET INTEGRATED) -->
+    <!-- JAVASCRIPT APP LOGIC -->
     <script>
-        // GOOGLE SHEET WEBHOOK URL
-        const GSHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwktrZNJtZw_YCMaOCRpVc09-D7-GYcy5n0LFZugLEEAvguP2jj4vihLkebshTPpWB0PQ/exec";
-
+        // DATA STATE MANAGEMENT
         let currentUser = JSON.parse(localStorage.getItem('ecoWilayahUser')) || {
-            nama: 'Warga Tamu RT 04',
-            email: 'warga@gmail.com',
+            nama: 'Bpk. Ahmad Subagyo',
+            email: 'ahmad@gmail.com',
             role: 'warga',
-            alamat: 'RT 04 / RW 01 Kembangarum'
+            alamat: 'Jl. Melati No. 12, RT 04/RW 02'
         };
 
-        let hostUploadedPosts = JSON.parse(localStorage.getItem('ecoHostPosts')) || [];
-        let userTransactions = JSON.parse(localStorage.getItem('ecoWilayahTx')) || [];
+        let hostUploadedPosts = JSON.parse(localStorage.getItem('ecoHostPosts')) || [
+            {
+                id: 1,
+                cat: 'kerajinan',
+                title: 'Pot Vertikal dari Galon Bekas',
+                img: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=500&auto=format&fit=crop&q=60',
+                desc: 'Inovasi memanfaatkan galon air mineral bekas sebagai pot tanaman hidroponik KWT.',
+                date: '2027-02-15'
+            },
+            {
+                id: 2,
+                cat: 'galeri',
+                title: 'Kerja Bakti & Penimbangan Sampah Rutin',
+                img: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=500&auto=format&fit=crop&q=60',
+                desc: 'Dokumentasi antusiasme warga RT 04 menyetor sampah di Pos Penimbangan.',
+                date: '2027-02-20'
+            }
+        ];
+
+        let userTransactions = JSON.parse(localStorage.getItem('ecoWilayahTx')) || [
+            { id: 1, date: '2027-02-10', type: 'Plastik PET (Botol)', weight: 3.5, totalRp: 10500, officer: 'Petugas RT 04' },
+            { id: 2, date: '2027-02-17', type: 'Kardus & Karton', weight: 5.0, totalRp: 11000, officer: 'Petugas RT 04' }
+        ];
 
         const trashDirectory = [
             { name: "Botol Aqua / Bening", category: "Plastik", desc: "Plastik PET bening. Dikeringkan sebelum ditimbang.", recyclable: true, price: "Rp 3,000 / kg" },
@@ -640,13 +688,13 @@
                 q: "Mana sampah yang paling tepat dimasukkan ke dalam tempat sampah Organik untuk Kompos KWT?",
                 opts: ["Kaleng minuman", "Kulit pisang & sisa sayur", "Kantong plastik", "Baterai bekas"],
                 ans: 1,
-                exp: "Kulit pisang & sisa sayur mudah terurai oleh mikroorganisme."
+                exp: "Kulit pisang & sisa sayur mudah terurai oleh mikroorganisme menjadi pupuk subur bagi KWT."
             },
             {
                 q: "Apa kepanjangan dari 3R?",
                 opts: ["Reduce, Reuse, Recycle", "Read, Run, Recycle", "Restore, Remove, Repair"],
                 ans: 0,
-                exp: "3R singkatan dari Reduce, Reuse, dan Recycle."
+                exp: "3R singkatan dari Reduce (Mengurangi), Reuse (Gunakan kembali), dan Recycle (Daur ulang)."
             }
         ];
 
@@ -654,6 +702,7 @@
         let quizScore = 0;
         let trendChartInstance = null;
 
+        // ON INITIAL LOAD
         window.onload = function() {
             renderUserWidget();
             renderTrashDirectory(trashDirectory);
@@ -688,6 +737,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // HOST PANEL ACCESS LOGIC
         function handleHostPanelClick() {
             if (currentUser && currentUser.role === 'admin') {
                 switchTab('admin');
@@ -696,18 +746,29 @@
             }
         }
 
-        function openHostVerifyModal() { document.getElementById('hostVerifyModal').classList.remove('hidden'); }
-        function closeHostVerifyModal() { document.getElementById('hostVerifyModal').classList.add('hidden'); }
+        function openHostVerifyModal() {
+            document.getElementById('hostVerifyModal').classList.remove('hidden');
+        }
+
+        function closeHostVerifyModal() {
+            document.getElementById('hostVerifyModal').classList.add('hidden');
+        }
 
         function quickSwitchToHost() {
             closeHostVerifyModal();
-            currentUser = { nama: 'Host / Pengurus RT', email: 'host.rt@ecowilayah.com', role: 'admin', alamat: 'Pos RT 04' };
+            currentUser = {
+                nama: 'Host / Pengurus RT',
+                email: 'host.rt@ecowilayah.com',
+                role: 'admin',
+                alamat: 'Pos RT 04/RW 02'
+            };
             localStorage.setItem('ecoWilayahUser', JSON.stringify(currentUser));
             renderUserWidget();
             switchTab('admin');
-            alert('Akses Host Diaktifkan!');
+            alert('Akses Host Berhasil Diaktifkan!');
         }
 
+        // AUTHENTICATION
         function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
         function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
 
@@ -728,11 +789,13 @@
         function handleLogin(e) {
             e.preventDefault();
             const email = document.getElementById('loginIdentifier').value;
+            
             if (email.includes('host') || email.includes('admin')) {
                 currentUser = { nama: 'Host / Pengurus RT', email: email, role: 'admin', alamat: 'Pos RT 04' };
             } else {
-                currentUser = { nama: email.split('@')[0].toUpperCase(), email: email, role: 'warga', alamat: 'RT 04 / RW 01' };
+                currentUser = { nama: 'Bpk. Ahmad Subagyo', email: email, role: 'warga', alamat: 'Jl. Melati No. 12' };
             }
+
             localStorage.setItem('ecoWilayahUser', JSON.stringify(currentUser));
             renderUserWidget();
             closeAuthModal();
@@ -751,6 +814,7 @@
         function renderUserWidget() {
             const widget = document.getElementById('userWidget');
             const isHost = currentUser && currentUser.role === 'admin';
+
             widget.innerHTML = `
                 <div class="flex items-center space-x-2">
                     <div class="w-8 h-8 rounded-xl ${isHost ? 'bg-amber-500 text-white' : 'bg-emerald-500/20 text-emerald-600'} font-bold flex items-center justify-center text-xs">
@@ -763,100 +827,11 @@
                     <button onclick="handleLogout()" class="p-1.5 text-slate-400 hover:text-red-500 text-xs" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></button>
                 </div>
             `;
+
             document.getElementById('hostBadgeSidebar').innerText = isHost ? "AKTIF" : "ADMIN";
         }
 
-        // DEPOSIT & GSHEET SYNC WEBHOOK
-        function openDepositModal() { document.getElementById('depositModal').classList.remove('hidden'); }
-        function closeDepositModal() { document.getElementById('depositModal').classList.add('hidden'); }
-
-        function calculateDepositTotal() {
-            const type = document.getElementById('depTypeSelect').value;
-            const weight = parseFloat(document.getElementById('depWeightInput').value) || 0;
-            let rate = 3000;
-            if (type.includes('Kardus')) rate = 2200;
-            if (type.includes('Kaleng')) rate = 12000;
-            if (type.includes('Jelantah')) rate = 6500;
-            const total = weight * rate;
-            document.getElementById('depCalculatedRp').innerText = `Rp ${total.toLocaleString('id-ID')}`;
-            return total;
-        }
-
-        async function handleDepositSubmit(e) {
-            e.preventDefault();
-            const weightVal = parseFloat(document.getElementById('depWeightInput').value);
-            const typeVal = document.getElementById('depTypeSelect').value;
-            const totalRpVal = calculateDepositTotal();
-            const dateVal = new Date().toISOString().split('T')[0];
-
-            const newTx = {
-                id: Date.now(),
-                date: dateVal,
-                type: typeVal,
-                weight: weightVal,
-                totalRp: totalRpVal,
-                officer: 'Petugas RT 04'
-            };
-
-            userTransactions.unshift(newTx);
-            localStorage.setItem('ecoWilayahTx', JSON.stringify(userTransactions));
-            renderTransactionHistory();
-            updateDashboardTotals();
-            closeDepositModal();
-
-            // KIRIM REALTIME KE GOOGLE SHEETS VIA WEBHOOK
-            const payload = {
-                tanggal: dateVal,
-                nama: currentUser.nama,
-                email: currentUser.email || '-',
-                jenisSampah: typeVal,
-                beratKg: weightVal,
-                nilaiRupiah: totalRpVal
-            };
-
-            try {
-                await fetch(GSHEET_WEBHOOK_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                alert('Setoran berhasil dicatat dan disinkronkan otomatis ke Google Spreadsheet Anda!');
-            } catch (err) {
-                console.error(err);
-                alert('Setoran tersimpan lokal, namun gagal terhubung ke GSheet.');
-            }
-        }
-
-        function renderTransactionHistory() {
-            const tbody = document.getElementById('transactionHistoryTable');
-            if (userTransactions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada riwayat setoran. Data dimulai dari nol.</td></tr>`;
-                return;
-            }
-            tbody.innerHTML = userTransactions.map(tx => `
-                <tr>
-                    <td class="p-2 text-slate-400">${tx.date}</td>
-                    <td class="p-2 font-bold">${tx.type}</td>
-                    <td class="p-2">${tx.weight} kg</td>
-                    <td class="p-2 font-extrabold text-emerald-500">Rp ${tx.totalRp.toLocaleString('id-ID')}</td>
-                    <td class="p-2 text-emerald-500 font-bold"><i class="fa-solid fa-check-circle"></i> Terkirim GSheet</td>
-                </tr>
-            `).join('');
-        }
-
-        function updateDashboardTotals() {
-            const totalRp = userTransactions.reduce((a, b) => a + b.totalRp, 0);
-            const totalKg = userTransactions.reduce((a, b) => a + b.weight, 0);
-
-            document.getElementById('userTotalRp').innerText = `Rp ${totalRp.toLocaleString('id-ID')}`;
-            document.getElementById('userTotalKg').innerText = `${totalKg.toFixed(1)} Kg`;
-            document.getElementById('statTotalKgRT').innerText = `${totalKg.toFixed(1)} Kg`;
-            document.getElementById('heroTotalKg').innerText = `${totalKg.toFixed(1)} Kg`;
-            document.getElementById('userDetailInfo').innerText = `${currentUser.nama}`;
-        }
-
-        // HOST UPLOAD LOGIC
+        // HOST CONTENT UPLOAD LOGIC
         function handleHostUpload(e) {
             e.preventDefault();
             const newPost = {
@@ -867,13 +842,15 @@
                 desc: document.getElementById('hostPostDesc').value,
                 date: new Date().toISOString().split('T')[0]
             };
+
             hostUploadedPosts.unshift(newPost);
             localStorage.setItem('ecoHostPosts', JSON.stringify(hostUploadedPosts));
+
             renderDynamicArticles();
             renderGallery();
             renderHostManageTable();
             document.getElementById('hostUploadForm').reset();
-            alert('Konten berhasil diterbitkan!');
+            alert('Konten berhasil dipublikasikan!');
         }
 
         function deleteHostPost(id) {
@@ -891,7 +868,9 @@
                     <td class="p-2 font-bold text-emerald-500 uppercase">${p.cat}</td>
                     <td class="p-2 font-semibold">${p.title}</td>
                     <td class="p-2 text-slate-400">${p.date}</td>
-                    <td class="p-2 text-right"><button onclick="deleteHostPost(${p.id})" class="text-red-500 hover:underline">Hapus</button></td>
+                    <td class="p-2 text-right">
+                        <button onclick="deleteHostPost(${p.id})" class="text-red-500 hover:underline">Hapus</button>
+                    </td>
                 </tr>
             `).join('');
         }
@@ -899,14 +878,17 @@
         function renderDynamicArticles() {
             const container = document.getElementById('dynamicArticlesGrid');
             const craftPosts = hostUploadedPosts.filter(p => p.cat === 'kerajinan');
-            if (craftPosts.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 col-span-3 text-center py-6">Belum ada artikel panduan dari host.</p>`;
-                return;
-            }
+
             container.innerHTML = craftPosts.map(p => `
-                <div class="glass-card rounded-2xl overflow-hidden group shadow-md">
-                    <div class="h-40 bg-slate-200 overflow-hidden"><img src="${p.img}" class="w-full h-full object-cover"></div>
-                    <div class="p-4 space-y-2"><h4 class="font-bold text-base">${p.title}</h4><p class="text-xs text-slate-500">${p.desc}</p></div>
+                <div class="glass-card rounded-2xl overflow-hidden group shadow-md hover:shadow-xl transition">
+                    <div class="h-40 bg-slate-200 overflow-hidden">
+                        <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <span class="text-[10px] uppercase font-bold text-emerald-500">Daur Ulang KWT</span>
+                        <h4 class="font-bold text-base">${p.title}</h4>
+                        <p class="text-xs text-slate-500">${p.desc}</p>
+                    </div>
                 </div>
             `).join('');
         }
@@ -914,20 +896,24 @@
         function renderGallery() {
             const container = document.getElementById('galleryGrid');
             const galPosts = hostUploadedPosts.filter(p => p.cat === 'galeri');
-            if (galPosts.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 col-span-3 text-center py-6">Belum ada galeri foto dari host.</p>`;
-                return;
-            }
+
             container.innerHTML = galPosts.map(p => `
                 <div class="glass-card rounded-2xl overflow-hidden shadow-md">
-                    <div class="h-44 overflow-hidden"><img src="${p.img}" class="w-full h-full object-cover"></div>
-                    <div class="p-3"><h4 class="font-bold text-xs">${p.title}</h4><span class="text-[10px] text-slate-400 block mt-1">${p.date}</span></div>
+                    <div class="h-44 overflow-hidden">
+                        <img src="${p.img}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-bold text-xs">${p.title}</h4>
+                        <span class="text-[10px] text-slate-400 block mt-1">${p.date}</span>
+                    </div>
                 </div>
             `).join('');
         }
 
+        // DIREKTORI & PRICES
         function renderTrashDirectory(data) {
-            document.getElementById('trashDirectoryGrid').innerHTML = data.map(item => `
+            const container = document.getElementById('trashDirectoryGrid');
+            container.innerHTML = data.map(item => `
                 <div class="glass-card p-4 rounded-2xl space-y-2 border border-slate-200 dark:border-slate-800">
                     <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-500">${item.category}</span>
                     <h4 class="font-bold text-sm">${item.name}</h4>
@@ -953,13 +939,17 @@
             `).join('');
         }
 
+        // QUIZ
         function renderQuizQuestion() {
             const q = quizData[currentQuizIndex];
             document.getElementById('quizProgress').innerText = `Soal ${currentQuizIndex + 1} dari ${quizData.length}`;
             document.getElementById('questionText').innerText = q.q;
             document.getElementById('explanationBox').classList.add('hidden');
+
             document.getElementById('optionsContainer').innerHTML = q.opts.map((opt, idx) => `
-                <button onclick="checkAnswer(${idx})" class="w-full text-left p-3 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs font-semibold">${opt}</button>
+                <button onclick="checkAnswer(${idx})" class="w-full text-left p-3 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs font-semibold">
+                    ${opt}
+                </button>
             `).join('');
         }
 
@@ -983,13 +973,68 @@
             else alert(`Kuis Selesai! Skor kamu: ${quizScore}`);
         }
 
+        // DEPOSIT & TRANSACTIONS
+        function openDepositModal() { document.getElementById('depositModal').classList.remove('hidden'); }
+        function closeDepositModal() { document.getElementById('depositModal').classList.add('hidden'); }
+
+        function calculateDepositTotal() {
+            const type = document.getElementById('depTypeSelect').value;
+            const weight = parseFloat(document.getElementById('depWeightInput').value) || 0;
+            let rate = 3000;
+            if (type.includes('Kardus')) rate = 2200;
+            if (type.includes('Kaleng')) rate = 12000;
+            if (type.includes('Jelantah')) rate = 6500;
+            const total = weight * rate;
+            document.getElementById('depCalculatedRp').innerText = `Rp ${total.toLocaleString('id-ID')}`;
+            return total;
+        }
+
+        function handleDepositSubmit(e) {
+            e.preventDefault();
+            const newTx = {
+                id: Date.now(),
+                date: new Date().toISOString().split('T')[0],
+                type: document.getElementById('depTypeSelect').value,
+                weight: parseFloat(document.getElementById('depWeightInput').value),
+                totalRp: calculateDepositTotal(),
+                officer: 'Petugas RT 04'
+            };
+            userTransactions.unshift(newTx);
+            localStorage.setItem('ecoWilayahTx', JSON.stringify(userTransactions));
+            renderTransactionHistory();
+            updateDashboardTotals();
+            closeDepositModal();
+            alert('Setoran dicatat!');
+        }
+
+        function renderTransactionHistory() {
+            document.getElementById('transactionHistoryTable').innerHTML = userTransactions.map(tx => `
+                <tr>
+                    <td class="p-2 text-slate-400">${tx.date}</td>
+                    <td class="p-2 font-bold">${tx.type}</td>
+                    <td class="p-2">${tx.weight} kg</td>
+                    <td class="p-2 font-extrabold text-emerald-500">Rp ${tx.totalRp.toLocaleString('id-ID')}</td>
+                    <td class="p-2 text-slate-400">${tx.officer}</td>
+                </tr>
+            `).join('');
+        }
+
+        function updateDashboardTotals() {
+            const totalRp = userTransactions.reduce((a, b) => a + b.totalRp, 0);
+            const totalKg = userTransactions.reduce((a, b) => a + b.weight, 0);
+
+            document.getElementById('userTotalRp').innerText = `Rp ${totalRp.toLocaleString('id-ID')}`;
+            document.getElementById('userTotalKg').innerText = `${totalKg.toFixed(1)} Kg`;
+            document.getElementById('userDetailInfo').innerText = `${currentUser.nama} (${currentUser.role.toUpperCase()})`;
+        }
+
         function initCharts() {
             const ctx1 = document.getElementById('depositTrendChart').getContext('2d');
             trendChartInstance = new Chart(ctx1, {
                 type: 'line',
                 data: {
-                    labels: ['Mulai', 'Minggu 1'],
-                    datasets: [{ label: 'Kg', data: [0, 0], borderColor: '#10b981', fill: false }]
+                    labels: ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4'],
+                    datasets: [{ label: 'Kg', data: [8.5, 12.0, 9.7, 15.2], borderColor: '#10b981', fill: false }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
             });
@@ -999,7 +1044,7 @@
                 type: 'doughnut',
                 data: {
                     labels: ['Plastik', 'Kardus', 'Alumunium'],
-                    datasets: [{ data: [1, 1, 1], backgroundColor: ['#10b981', '#fbbf24', '#3b82f6'] }]
+                    datasets: [{ data: [45, 35, 20], backgroundColor: ['#10b981', '#fbbf24', '#3b82f6'] }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
             });
