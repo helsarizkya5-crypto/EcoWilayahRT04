@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoWilayah - Bank Sampah & KWT Digital</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        teak: {
+                            400: '#a3e635',
+                            500: '#84cc16',
+                            600: '#65a30d',
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        }
+                    },
+                    animation: {
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'float-medium': 'float 5s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-15px) rotate(6deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.2', transform: 'scale(1)' },
+                            '50%': { opacity: '0.4', transform: 'scale(1.1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .leaf-particle {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.25;
+            z-index: 0;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(16, 185, 129, 0.4);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(16, 185, 129, 0.7);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300 relative overflow-x-hidden selection:bg-emerald-500 selection:text-white">
+
+    <!-- Ambient Floating Background Effect -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="absolute -top-20 -left-20 w-96 h-96 bg-emerald-500/20 rounded-full filter blur-3xl animate-pulse-glow"></div>
+        <div class="absolute top-1/3 -right-20 w-96 h-96 bg-teak-500/20 rounded-full filter blur-3xl animate-pulse-glow" style="animation-delay: 2s;"></div>
+        <div class="absolute -bottom-20 left-1/3 w-96 h-96 bg-amber-500/15 rounded-full filter blur-3xl animate-pulse-glow" style="animation-delay: 4s;"></div>
+        
+        <i class="fa-solid fa-leaf leaf-particle text-emerald-500 text-3xl top-12 left-10 animate-float-slow"></i>
+        <i class="fa-solid fa-seedling leaf-particle text-teak-500 text-2xl top-1/4 right-12 animate-float-medium"></i>
+        <i class="fa-solid fa-plant-wilt leaf-particle text-emerald-400 text-4xl bottom-20 left-1/4 animate-float-slow" style="animation-delay: 1.5s;"></i>
+        <i class="fa-solid fa-clover leaf-particle text-emerald-300 text-3xl bottom-1/3 right-1/4 animate-float-medium" style="animation-delay: 3s;"></i>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- Top Header Bar -->
+        <header class="sticky top-0 z-50 glass-card border-b border-slate-200/50 dark:border-slate-800/50 transition-colors">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <!-- Brand Logo & Drawer Toggle -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl bg-slate-200/60 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+
+                    <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teak-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30">
+                            <i class="fa-solid fa-recycle text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-emerald-600 via-emerald-500 to-teak-500 bg-clip-text text-transparent">EcoWilayah</span>
+                            <span class="text-[10px] block font-semibold text-slate-500 dark:text-slate-400 tracking-wider uppercase -mt-1">Bank Sampah & KWT Digital</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="flex items-center space-x-3">
+                    <!-- Dark/Light Theme Toggle -->
+                    <button id="themeToggle" onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-200/60 dark:bg-slate-800/80 text-slate-700 dark:text-amber-400 hover:scale-105 transition" title="Ganti Mode Terang/Gelap">
+                        <i class="fa-solid fa-moon text-lg dark:hidden"></i>
+                        <i class="fa-solid fa-sun text-lg hidden dark:block"></i>
+                    </button>
+
+                    <!-- User Account Widget -->
+                    <div id="userWidget">
+                        <button onclick="openAuthModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md shadow-emerald-600/30 transition flex items-center gap-2">
+                            <i class="fa-solid fa-right-to-bracket"></i> Masuk / Daftar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- BODY WITH SIDEBAR & MAIN CONTENT LAYOUT -->
+        <div class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex gap-6">
+
+            <!-- SIDEBAR NAVIGATION MENU (PERMANENT & MOBILE ADAPTIVE) -->
+            <aside id="mainSidebar" class="w-64 shrink-0 fixed lg:relative inset-y-0 left-0 z-40 bg-slate-100/90 dark:bg-slate-900/90 lg:bg-transparent lg:dark:bg-transparent backdrop-blur-xl lg:backdrop-blur-none p-4 lg:p-0 transition-transform duration-300 -translate-x-full lg:translate-x-0 border-r border-slate-200/50 dark:border-slate-800/50 lg:border-none flex flex-col justify-between">
+                
+                <div class="space-y-4">
+                    <div class="lg:hidden flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-800">
+                        <span class="font-bold text-sm">Menu Navigasi</span>
+                        <button onclick="toggleSidebar()" class="p-1 text-slate-400"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    </div>
+
+                    <nav class="space-y-1 font-medium text-sm">
+                        <button onclick="switchTab('home')" class="nav-btn w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-600 transition flex items-center gap-3" id="nav-home">
+                            <i class="fa-solid fa-house w-5 text-center text-emerald-500"></i> Beranda
+                        </button>
+                        <button onclick="switchTab('edukasi')" class="nav-btn w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-600 transition flex items-center gap-3" id="nav-edukasi">
+                            <i class="fa-solid fa-book-open w-5 text-center text-emerald-500"></i> Edukasi Sampah
+                        </button>
+                        <button onclick="switchTab('direktori')" class="nav-btn w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-600 transition flex items-center gap-3" id="nav-direktori">
+                            <i class="fa-solid fa-magnifying-glass w-5 text-center text-emerald-500"></i> Cek Jenis Sampah
+                        </button>
+                        <button onclick="switchTab('panduan')" class="nav-btn w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-600 transition flex items-center gap-3" id="nav-panduan">
+                            <i class="fa-solid fa-tag w-5 text-center text-emerald-500"></i> Price List & Panduan
+                        </button>
+                        <button onclick="switchTab('kompos')" class="nav-btn w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-600 transition flex items-center gap-3" id="nav-kompos">
+                            <i class="fa-solid fa-seedling w-5 text-center text-teak-500"></i> Komposting & Taman KWT
+                        </button>
+                        <button onclick="switchTab('kuis')" class="nav-btn w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-600 transition flex items-center gap-3" id="nav-kuis">
+                            <i class="fa-solid fa-gamepad w-5 text-center text-amber-500"></i> Game Kuis Interaktif
+                        </button>
+                        <button onclick="switchTab('tabungan')" class="nav-btn w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-600 transition flex items-center gap-3" id="nav-tabungan">
+                            <i class="fa-solid fa-wallet w-5 text-center text-emerald-500"></i> Buku Tabungan Digital
+                        </button>
+                        <button onclick="switchTab('galeri')" class="nav-btn w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-600 transition flex items-center gap-3" id="nav-galeri">
+                            <i class="fa-solid fa-images w-5 text-center text-emerald-500"></i> Galeri Kegiatan
+                        </button>
+
+                        <!-- HOST/ADMIN CONTROL PANEL MENU (EXPLICITLY VISIBLE) -->
+                        <div class="pt-3 mt-3 border-t border-slate-200 dark:border-slate-800">
+                            <button onclick="handleHostPanelClick()" class="nav-btn w-full text-left px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600/20 to-teak-500/20 hover:from-emerald-600/30 hover:to-teak-500/30 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-500/30 shadow-sm transition flex items-center justify-between" id="nav-admin">
+                                <span class="flex items-center gap-2">
+                                    <i class="fa-solid fa-user-shield text-emerald-500"></i> Panel Host
+                                </span>
+                                <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500 text-white uppercase tracking-wider" id="hostBadgeSidebar">ADMIN</span>
+                            </button>
+                        </div>
+                    </nav>
+                </div>
+
+                <!-- Info Box in Sidebar -->
+                <div class="glass-card p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs space-y-1 mt-6">
+                    <span class="font-bold text-emerald-600 dark:text-emerald-400 block"><i class="fa-solid fa-circle-info"></i> RT 04 / RW 02</span>
+                    <p class="text-slate-500 dark:text-slate-400">Jadwal Penimbangan: Sabtu Pagi 08:00 - 11:00 WIB di Pos RT.</p>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT AREA PANELS -->
+            <main class="flex-grow w-full overflow-hidden">
+
+                <!-- SECTION 1: HOME / HERO PAGE -->
+                <section id="tab-home" class="tab-panel space-y-8 animate-fade-in">
+                    <div class="relative rounded-3xl overflow-hidden glass-card p-8 md:p-10 border border-emerald-500/20 shadow-2xl">
+                        <div class="grid md:grid-cols-2 gap-8 items-center relative z-10">
+                            <div class="space-y-6">
+                                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider border border-emerald-500/20">
+                                    <i class="fa-solid fa-award"></i> Portofolio Pramuka Garuda Penegak 2027
+                                </div>
+                                <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+                                    Transformasi Sampah Jadi <span class="bg-gradient-to-r from-emerald-500 to-teak-500 bg-clip-text text-transparent">Berkah & Hijau</span> Wilayah Kita
+                                </h1>
+                                <p class="text-slate-600 dark:text-slate-300 text-base">
+                                    Platform integrasi digitalisasi **Bank Sampah RT** dan **Taman Kelompok Wanita Tani (KWT)**. Kelola tabungan sampah warga, daur ulang organik menjadi kompos, dan ciptakan lingkungan asri.
+                                </p>
+                                <div class="flex flex-wrap gap-3 pt-2">
+                                    <button onclick="switchTab('tabungan')" class="px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-500/30 transition hover:scale-[1.02] flex items-center gap-2">
+                                        <i class="fa-solid fa-wallet"></i> Buka Tabungan Sampah
+                                    </button>
+                                    <button onclick="handleHostPanelClick()" class="px-5 py-3 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 font-bold text-sm transition flex items-center gap-2">
+                                        <i class="fa-solid fa-user-shield text-emerald-500"></i> Masuk Panel Host
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="relative flex justify-center items-center">
+                                <div class="w-72 h-72 rounded-3xl bg-gradient-to-br from-emerald-500/30 via-teak-500/20 to-amber-500/10 p-4 relative flex items-center justify-center animate-float-slow">
+                                    <div class="w-full h-full rounded-2xl glass-card flex flex-col justify-center items-center text-center p-6 space-y-4 shadow-xl">
+                                        <div class="w-20 h-20 rounded-2xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center text-4xl shadow-inner">
+                                            <i class="fa-solid fa-hand-holding-seeding"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold">Bank Sampah & KWT</h3>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Sinergi Pemilahan Organik & Penghijauan Taman RT</p>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-2 w-full text-left">
+                                            <div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                                                <span class="text-[10px] text-slate-500 block">Total Didaur Ulang</span>
+                                                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400" id="heroTotalKg">1,240 Kg</span>
+                                            </div>
+                                            <div class="p-2 rounded-lg bg-teak-500/10 border border-teak-500/20">
+                                                <span class="text-[10px] text-slate-500 block">Kompos KWT</span>
+                                                <span class="text-xs font-bold text-teak-600 dark:text-teak-400" id="heroTotalKompos">380 Kg</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 2: EDUKASI SAMPAH INDONESIA & 3R -->
+                <section id="tab-edukasi" class="tab-panel hidden space-y-8">
+                    <div class="text-center max-w-2xl mx-auto space-y-2">
+                        <h2 class="text-3xl font-black">Pusat Edukasi Sampah & Lingkungan</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Fakta darurat sampah di Indonesia dan langkah nyata dari lingkungan keluarga.</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="glass-card p-5 rounded-2xl text-center border-b-4 border-red-500">
+                            <i class="fa-solid fa-dumpster text-3xl text-red-500 mb-2"></i>
+                            <span class="block text-2xl font-black">68.5 Juta</span>
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Ton Sampah/Tahun Indonesia</span>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl text-center border-b-4 border-amber-500">
+                            <i class="fa-solid fa-wine-bottle text-3xl text-amber-500 mb-2"></i>
+                            <span class="block text-2xl font-black">17%</span>
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Plastik Sekali Pakai</span>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl text-center border-b-4 border-emerald-500">
+                            <i class="fa-solid fa-recycle text-3xl text-emerald-500 mb-2"></i>
+                            <span class="block text-2xl font-black">12-15%</span>
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Berhasil Didaur Ulang</span>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl text-center border-b-4 border-teak-500">
+                            <i class="fa-solid fa-leaf text-3xl text-teak-500 mb-2"></i>
+                            <span class="block text-2xl font-black">57%</span>
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Sampah Organik Dapur</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 3: DIREKTORI SAMPAH -->
+                <section id="tab-direktori" class="tab-panel hidden space-y-6">
+                    <div class="text-center max-w-2xl mx-auto space-y-2">
+                        <h2 class="text-3xl font-black">Cek & Direktori Jenis Sampah</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Cari jenis sampah untuk mengetahui kategori dan cara penanganannya.</p>
+                    </div>
+
+                    <div class="max-w-xl mx-auto relative">
+                        <input type="text" id="trashSearchInput" oninput="filterTrashDirectory()" placeholder="Ketik jenis sampah (misal: Botol, Kardus, Sayur, Jelantah)..." class="w-full px-5 py-3.5 pl-12 rounded-2xl glass-card border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm shadow-md">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                    </div>
+
+                    <div id="trashDirectoryGrid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- SECTION 4: PRICE LIST & PANDUAN -->
+                <section id="tab-panduan" class="tab-panel hidden space-y-6">
+                    <div class="text-center max-w-2xl mx-auto space-y-2">
+                        <h2 class="text-3xl font-black">Panduan Setor & Price List</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Estimasi harga beli sampah per kg di Bank Sampah RT kami.</p>
+                    </div>
+
+                    <div class="glass-card rounded-3xl overflow-hidden p-6">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-200/50 dark:bg-slate-800/50 uppercase text-xs">
+                                    <tr>
+                                        <th class="p-3">Kategori</th>
+                                        <th class="p-3">Jenis Item Sampah</th>
+                                        <th class="p-3">Kondisi</th>
+                                        <th class="p-3 text-right">Harga Estimasi / Kg</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 dark:divide-slate-800" id="priceListTable">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 5: KOMPOSTING & KWT -->
+                <section id="tab-kompos" class="tab-panel hidden space-y-8">
+                    <div class="text-center max-w-2xl mx-auto space-y-2">
+                        <h2 class="text-3xl font-black">Komposting & Kreasi Taman KWT</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Pengolahan sampah organik dan daur ulang untuk Kelompok Wanita Tani.</p>
+                    </div>
+
+                    <div id="dynamicArticlesGrid" class="grid md:grid-cols-3 gap-6">
+                        <!-- Static & Dynamic Uploaded Articles from Host -->
+                    </div>
+                </section>
+
+                <!-- SECTION 6: GAME KUIS INTERAKTIF -->
+                <section id="tab-kuis" class="tab-panel hidden space-y-6">
+                    <div class="text-center max-w-2xl mx-auto space-y-2">
+                        <h2 class="text-3xl font-black">Zero Waste Challenge Quiz</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Uji wawasan lingkunganmu dan peroleh skor tertinggi!</p>
+                    </div>
+
+                    <div class="max-w-2xl mx-auto glass-card p-6 md:p-8 rounded-3xl space-y-6 shadow-2xl relative" id="quizContainer">
+                        <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-500" id="quizProgress">Soal 1 dari 3</span>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-star text-amber-400"></i>
+                                <span class="font-bold text-sm" id="quizScore">Skor: 0</span>
+                            </div>
+                        </div>
+
+                        <div id="quizQuestionBox" class="space-y-4">
+                            <h3 class="text-lg font-bold" id="questionText">Loading Soal...</h3>
+                            <div class="space-y-2.5" id="optionsContainer"></div>
+                        </div>
+
+                        <div id="explanationBox" class="hidden p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 space-y-2 animate-fade-in">
+                            <div class="flex items-center gap-2 font-bold text-xs">
+                                <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                                <span id="explanationTitle">Pembahasan:</span>
+                            </div>
+                            <p class="text-xs leading-relaxed" id="explanationText"></p>
+                            <button onclick="nextQuestion()" class="mt-2 w-full py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs">
+                                Soal Berikutnya <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 7: BUKU TABUNGAN DIGITAL -->
+                <section id="tab-tabungan" class="tab-panel hidden space-y-8">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-black">Buku Tabungan Sampah Digital</h2>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs">Monitoring setoran pribadi dan grafik akumulasi RT.</p>
+                        </div>
+                        <button onclick="openDepositModal()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-plus-circle"></i> Input Setoran Sampah
+                        </button>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="glass-card p-4 rounded-2xl space-y-1">
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Total Saldo Terkumpul</span>
+                            <div class="text-xl font-black text-emerald-600 dark:text-emerald-400" id="userTotalRp">Rp 0</div>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl space-y-1">
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Berat Setoran Saya</span>
+                            <div class="text-xl font-black text-teak-600 dark:text-teak-400" id="userTotalKg">0 Kg</div>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl space-y-1">
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Total Sampah RT</span>
+                            <div class="text-xl font-black text-amber-500">1,240 Kg</div>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl space-y-1">
+                            <span class="text-[10px] text-slate-500 uppercase font-semibold">Akun Aktif</span>
+                            <div class="text-sm font-bold text-slate-800 dark:text-slate-100 truncate" id="userDetailInfo">Warga RT 04</div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="md:col-span-2 glass-card p-5 rounded-3xl">
+                            <h3 class="font-bold text-sm mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-emerald-500"></i> Tren Setoran Sampah (Kg)
+                            </h3>
+                            <div class="h-56 relative"><canvas id="depositTrendChart"></canvas></div>
+                        </div>
+                        <div class="glass-card p-5 rounded-3xl">
+                            <h3 class="font-bold text-sm mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-pie text-teak-500"></i> Distribusi Jenis
+                            </h3>
+                            <div class="h-56 relative flex items-center justify-center"><canvas id="categoryPieChart"></canvas></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-3xl p-6">
+                        <h3 class="font-bold text-sm mb-4"><i class="fa-solid fa-clock-rotate-left text-emerald-500"></i> Riwayat Transaksi</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-200/50 dark:bg-slate-800/50 uppercase">
+                                    <tr>
+                                        <th class="p-2.5">Tanggal</th>
+                                        <th class="p-2.5">Jenis Sampah</th>
+                                        <th class="p-2.5">Berat (Kg)</th>
+                                        <th class="p-2.5">Nilai Rupiah</th>
+                                        <th class="p-2.5">Petugas RT</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 dark:divide-slate-800" id="transactionHistoryTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 8: GALERI WARGA -->
+                <section id="tab-galeri" class="tab-panel hidden space-y-6">
+                    <div class="text-center max-w-2xl mx-auto space-y-2">
+                        <h2 class="text-3xl font-black">Galeri Warga & KWT</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Dokumentasi kegiatan Bank Sampah, Taman KWT, dan kerja bakti RT.</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6" id="galleryGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- SECTION 9: HOST / ADMIN CONTROL PANEL (EXCLUSIVE) -->
+                <section id="tab-admin" class="tab-panel hidden space-y-8">
+                    <div class="glass-card p-6 md:p-8 rounded-3xl border-2 border-emerald-500/40 space-y-6 shadow-2xl relative overflow-hidden">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+                            <div>
+                                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white font-bold text-[10px] uppercase tracking-wider mb-2">
+                                    <i class="fa-solid fa-shield-halved"></i> Panel Kontrol Host RT
+                                </div>
+                                <h2 class="text-2xl font-black">Unggah Konten & Pengelolaan Web</h2>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Khusus Host/Admin untuk mempublikasikan foto kegiatan dan artikel daur ulang.</p>
+                            </div>
+                            <button onclick="handleLogout()" class="px-4 py-2 rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500/20 font-bold text-xs transition self-start">
+                                <i class="fa-solid fa-right-from-bracket"></i> Keluar Akses Host
+                            </button>
+                        </div>
+
+                        <!-- Upload Form -->
+                        <form id="hostUploadForm" onsubmit="handleHostUpload(event)" class="space-y-4">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold mb-1">Pilih Kategori Publis</label>
+                                    <select id="hostPostCategory" required class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                        <option value="galeri">Galeri Kegiatan KWT / Bank Sampah</option>
+                                        <option value="kerajinan">Artikel / Panduan Kerajinan Daur Ulang</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold mb-1">Judul / Nama Kegiatan</label>
+                                    <input type="text" id="hostPostTitle" required placeholder="Contoh: Pelatihan Kerajinan Tas Plastik Dawis" class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold mb-1">Link URL Gambar / Foto Dokumentasi</label>
+                                <input type="url" id="hostPostImageUrl" required placeholder="https://images.unsplash.com/photo-..." class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                <span class="text-[10px] text-slate-400">Tips: Salin link gambar langsung dari internet atau hosting foto gratis.</span>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold mb-1">Deskripsi / Detail Keterangan</label>
+                                <textarea id="hostPostDesc" rows="3" required placeholder="Tuliskan cerita kegiatan atau langkah-langkah kerajinan di sini..." class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 transition">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Terbitkan (Publish) Konten Sekarang
+                            </button>
+                        </form>
+
+                        <!-- Uploaded Content Management Table -->
+                        <div class="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-3">
+                            <h3 class="font-bold text-sm">Daftar Konten Diterbitkan Host:</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead class="bg-slate-200/50 dark:bg-slate-800/50 uppercase">
+                                        <tr>
+                                            <th class="p-2">Kategori</th>
+                                            <th class="p-2">Judul</th>
+                                            <th class="p-2">Tanggal</th>
+                                            <th class="p-2 text-right">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="hostContentManageTable" class="divide-y divide-slate-200 dark:divide-slate-800">
+                                        <!-- Populated via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="glass-card mt-auto border-t border-slate-200 dark:border-slate-800 py-6">
+            <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-1">
+                <p class="font-semibold">&copy; 2027 EcoWilayah - Portofolio Pramuka Garuda Golongan Penegak</p>
+                <p>Digitalisasi Bank Sampah & Kelompok Wanita Tani (KWT) Wilayah RT 04 / RW 02</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- MODAL 1: AUTHENTICATION (WARGA & HOST LOGIN) -->
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden animate-fade-in">
+        <div class="glass-card w-full max-w-md rounded-3xl p-6 space-y-5 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-1">
+                <h3 class="text-2xl font-black">Masuk Akun EcoWilayah</h3>
+                <p class="text-xs text-slate-500">Pilih jenis akun Anda untuk melanjutkan.</p>
+            </div>
+
+            <!-- Role Quick Buttons -->
+            <div class="flex rounded-xl bg-slate-200 dark:bg-slate-800 p-1 gap-1">
+                <button onclick="switchLoginRole('warga')" id="roleWargaBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow">
+                    <i class="fa-solid fa-user"></i> Akun Warga
+                </button>
+                <button onclick="switchLoginRole('host')" id="roleHostBtn" class="w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500">
+                    <i class="fa-solid fa-user-shield"></i> Host / Admin
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold mb-1">Email / NIK</label>
+                    <input type="text" id="loginIdentifier" required placeholder="Email atau NIK 16 digit" class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">Kata Sandi</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full px-3 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+                <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition">
+                    Masuk Sekarang
+                </button>
+            </form>
+
+            <div class="text-center pt-2 border-t border-slate-200 dark:border-slate-800">
+                <p class="text-[11px] text-slate-500">Kredensial Default Host: <br><strong class="text-emerald-500">host.rt@ecowilayah.com</strong> | Pass: <strong class="text-emerald-500">admin123</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: HOST ACCESS VERIFICATION FOR CITIZENS -->
+    <div id="hostVerifyModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden animate-fade-in">
+        <div class="glass-card w-full max-w-sm rounded-3xl p-6 space-y-4 text-center shadow-2xl relative">
+            <button onclick="closeHostVerifyModal()" class="absolute top-4 right-4 text-slate-400 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center text-2xl">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="text-xl font-bold">Verifikasi Akses Host</h3>
+            <p class="text-xs text-slate-500">Fitur ini khusus untuk Pengurus RT / Host KWT. Silakan masuk menggunakan akun Host untuk mengakses panel kelola konten.</p>
+
+            <div class="space-y-2 pt-2">
+                <button onclick="quickSwitchToHost()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md">
+                    Masuk Mode Host (host.rt@ecowilayah.com)
+                </button>
+                <button onclick="closeHostVerifyModal()" class="w-full py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs">
+                    Kembali sebagai Warga
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: INPUT SETORAN SAMPAH -->
+    <div id="depositModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden animate-fade-in">
+        <div class="glass-card w-full max-w-md rounded-3xl p-6 space-y-4 shadow-2xl relative">
+            <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-slate-400 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-xl font-bold text-center">Form Setoran Sampah</h3>
+
+            <form onsubmit="handleDepositSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold mb-1">Pilih Jenis Sampah</label>
+                    <select id="depTypeSelect" onchange="calculateDepositTotal()" required class="w-full px-3 py-2 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs focus:outline-none">
+                        <option value="Plastik PET (Botol)">Plastik PET (Botol) - Rp 3,000/kg</option>
+                        <option value="Kardus & Karton">Kardus & Karton - Rp 2,200/kg</option>
+                        <option value="Kaleng Alumunium">Kaleng Alumunium - Rp 12,000/kg</option>
+                        <option value="Minyak Jelantah">Minyak Jelantah - Rp 6,500/kg</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">Berat Sampah (Kg)</label>
+                    <input type="number" step="0.1" min="0.1" id="depWeightInput" oninput="calculateDepositTotal()" required placeholder="2.5" class="w-full px-3 py-2 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs focus:outline-none">
+                </div>
+                <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex justify-between items-center text-xs">
+                    <span class="font-bold">Hasil Rupiah:</span>
+                    <span class="font-black text-emerald-600 dark:text-emerald-400" id="depCalculatedRp">Rp 0</span>
+                </div>
+                <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-md">Simpan Setoran</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // DATA STATE MANAGEMENT
+        let currentUser = JSON.parse(localStorage.getItem('ecoWilayahUser')) || {
+            nama: 'Bpk. Ahmad Subagyo',
+            email: 'ahmad@gmail.com',
+            role: 'warga',
+            alamat: 'Jl. Melati No. 12, RT 04/RW 02'
+        };
+
+        let hostUploadedPosts = JSON.parse(localStorage.getItem('ecoHostPosts')) || [
+            {
+                id: 1,
+                cat: 'kerajinan',
+                title: 'Pot Vertikal dari Galon Bekas',
+                img: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=500&auto=format&fit=crop&q=60',
+                desc: 'Inovasi memanfaatkan galon air mineral bekas sebagai pot tanaman hidroponik KWT.',
+                date: '2027-02-15'
+            },
+            {
+                id: 2,
+                cat: 'galeri',
+                title: 'Kerja Bakti & Penimbangan Sampah Rutin',
+                img: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=500&auto=format&fit=crop&q=60',
+                desc: 'Dokumentasi antusiasme warga RT 04 menyetor sampah di Pos Penimbangan.',
+                date: '2027-02-20'
+            }
+        ];
+
+        let userTransactions = JSON.parse(localStorage.getItem('ecoWilayahTx')) || [
+            { id: 1, date: '2027-02-10', type: 'Plastik PET (Botol)', weight: 3.5, totalRp: 10500, officer: 'Petugas RT 04' },
+            { id: 2, date: '2027-02-17', type: 'Kardus & Karton', weight: 5.0, totalRp: 11000, officer: 'Petugas RT 04' }
+        ];
+
+        const trashDirectory = [
+            { name: "Botol Aqua / Bening", category: "Plastik", desc: "Plastik PET bening. Dikeringkan sebelum ditimbang.", recyclable: true, price: "Rp 3,000 / kg" },
+            { name: "Kardus Bekas Pack", category: "Kertas", desc: "Kardus cokelat tebal dilipat rata.", recyclable: true, price: "Rp 2,200 / kg" },
+            { name: "Minyak Jelantah Dapur", category: "Minyak", desc: "Minyak goreng bekas disaring ke dalam jeriken.", recyclable: true, price: "Rp 6,500 / kg" },
+            { name: "Kulit Buah & Sayuran", category: "Organik", desc: "Bahan pembuatan pupuk kompos cair & padat KWT.", recyclable: true, price: "Rp 1,000 / kg" },
+            { name: "Kaleng Minuman Soda", category: "Logam", desc: "Alumunium ringan, dikempeskan.", recyclable: true, price: "Rp 12,000 / kg" }
+        ];
+
+        const priceList = [
+            { cat: "Plastik", name: "Botol PET Bening bersih", cond: "Kering & Bersih", price: 3000 },
+            { cat: "Kertas", name: "Kardus Gelombang", cond: "Kering & Dilipat", price: 2200 },
+            { cat: "Logam", name: "Kaleng Alumunium", cond: "Kempes", price: 12000 },
+            { cat: "Cairan", name: "Minyak Jelantah Dapur", cond: "Wadah Botol", price: 6500 }
+        ];
+
+        const quizData = [
+            {
+                q: "Mana sampah yang paling tepat dimasukkan ke dalam tempat sampah Organik untuk Kompos KWT?",
+                opts: ["Kaleng minuman", "Kulit pisang & sisa sayur", "Kantong plastik", "Baterai bekas"],
+                ans: 1,
+                exp: "Kulit pisang & sisa sayur mudah terurai oleh mikroorganisme menjadi pupuk subur bagi KWT."
+            },
+            {
+                q: "Apa kepanjangan dari 3R?",
+                opts: ["Reduce, Reuse, Recycle", "Read, Run, Recycle", "Restore, Remove, Repair"],
+                ans: 0,
+                exp: "3R singkatan dari Reduce (Mengurangi), Reuse (Gunakan kembali), dan Recycle (Daur ulang)."
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let trendChartInstance = null;
+
+        // ON INITIAL LOAD
+        window.onload = function() {
+            renderUserWidget();
+            renderTrashDirectory(trashDirectory);
+            renderPriceList();
+            renderQuizQuestion();
+            renderTransactionHistory();
+            renderDynamicArticles();
+            renderGallery();
+            renderHostManageTable();
+            initCharts();
+            updateDashboardTotals();
+        };
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        function toggleSidebar() {
+            document.getElementById('mainSidebar').classList.toggle('-translate-x-full');
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.add('hidden'));
+            const target = document.getElementById('tab-' + tabId);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('bg-emerald-500/20', 'text-emerald-600', 'font-bold'));
+            const activeNav = document.getElementById('nav-' + tabId);
+            if (activeNav) activeNav.classList.add('bg-emerald-500/20', 'text-emerald-600', 'font-bold');
+
+            if (window.innerWidth < 1024) toggleSidebar();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // HOST PANEL ACCESS LOGIC
+        function handleHostPanelClick() {
+            if (currentUser && currentUser.role === 'admin') {
+                switchTab('admin');
+            } else {
+                openHostVerifyModal();
+            }
+        }
+
+        function openHostVerifyModal() {
+            document.getElementById('hostVerifyModal').classList.remove('hidden');
+        }
+
+        function closeHostVerifyModal() {
+            document.getElementById('hostVerifyModal').classList.add('hidden');
+        }
+
+        function quickSwitchToHost() {
+            closeHostVerifyModal();
+            currentUser = {
+                nama: 'Host / Pengurus RT',
+                email: 'host.rt@ecowilayah.com',
+                role: 'admin',
+                alamat: 'Pos RT 04/RW 02'
+            };
+            localStorage.setItem('ecoWilayahUser', JSON.stringify(currentUser));
+            renderUserWidget();
+            switchTab('admin');
+            alert('Akses Host Berhasil Diaktifkan!');
+        }
+
+        // AUTHENTICATION
+        function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
+        function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
+
+        function switchLoginRole(role) {
+            if (role === 'host') {
+                document.getElementById('loginIdentifier').value = 'host.rt@ecowilayah.com';
+                document.getElementById('loginPassword').value = 'admin123';
+                document.getElementById('roleHostBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow";
+                document.getElementById('roleWargaBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500";
+            } else {
+                document.getElementById('loginIdentifier').value = '';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('roleWargaBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow";
+                document.getElementById('roleHostBtn').className = "w-1/2 py-2 rounded-lg text-xs font-bold text-slate-500";
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginIdentifier').value;
+            
+            if (email.includes('host') || email.includes('admin')) {
+                currentUser = { nama: 'Host / Pengurus RT', email: email, role: 'admin', alamat: 'Pos RT 04' };
+            } else {
+                currentUser = { nama: 'Bpk. Ahmad Subagyo', email: email, role: 'warga', alamat: 'Jl. Melati No. 12' };
+            }
+
+            localStorage.setItem('ecoWilayahUser', JSON.stringify(currentUser));
+            renderUserWidget();
+            closeAuthModal();
+            alert(`Selamat datang, ${currentUser.nama}!`);
+            if (currentUser.role === 'admin') switchTab('admin');
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('ecoWilayahUser');
+            currentUser = { nama: 'Warga Tamu', email: '', role: 'warga', alamat: 'RT 04' };
+            renderUserWidget();
+            switchTab('home');
+            alert('Anda telah keluar.');
+        }
+
+        function renderUserWidget() {
+            const widget = document.getElementById('userWidget');
+            const isHost = currentUser && currentUser.role === 'admin';
+
+            widget.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-xl ${isHost ? 'bg-amber-500 text-white' : 'bg-emerald-500/20 text-emerald-600'} font-bold flex items-center justify-center text-xs">
+                        <i class="fa-solid ${isHost ? 'fa-user-shield' : 'fa-user'}"></i>
+                    </div>
+                    <div class="hidden sm:block text-left">
+                        <span class="block text-xs font-bold">${currentUser.nama}</span>
+                        <span class="text-[10px] ${isHost ? 'text-amber-500 font-extrabold' : 'text-slate-400'}">${isHost ? '🛡️ Admin / Host' : currentUser.alamat}</span>
+                    </div>
+                    <button onclick="handleLogout()" class="p-1.5 text-slate-400 hover:text-red-500 text-xs" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            `;
+
+            document.getElementById('hostBadgeSidebar').innerText = isHost ? "AKTIF" : "ADMIN";
+        }
+
+        // HOST CONTENT UPLOAD LOGIC
+        function handleHostUpload(e) {
+            e.preventDefault();
+            const newPost = {
+                id: Date.now(),
+                cat: document.getElementById('hostPostCategory').value,
+                title: document.getElementById('hostPostTitle').value,
+                img: document.getElementById('hostPostImageUrl').value,
+                desc: document.getElementById('hostPostDesc').value,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            hostUploadedPosts.unshift(newPost);
+            localStorage.setItem('ecoHostPosts', JSON.stringify(hostUploadedPosts));
+
+            renderDynamicArticles();
+            renderGallery();
+            renderHostManageTable();
+            document.getElementById('hostUploadForm').reset();
+            alert('Konten berhasil dipublikasikan!');
+        }
+
+        function deleteHostPost(id) {
+            hostUploadedPosts = hostUploadedPosts.filter(p => p.id !== id);
+            localStorage.setItem('ecoHostPosts', JSON.stringify(hostUploadedPosts));
+            renderDynamicArticles();
+            renderGallery();
+            renderHostManageTable();
+        }
+
+        function renderHostManageTable() {
+            const tbody = document.getElementById('hostContentManageTable');
+            tbody.innerHTML = hostUploadedPosts.map(p => `
+                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
+                    <td class="p-2 font-bold text-emerald-500 uppercase">${p.cat}</td>
+                    <td class="p-2 font-semibold">${p.title}</td>
+                    <td class="p-2 text-slate-400">${p.date}</td>
+                    <td class="p-2 text-right">
+                        <button onclick="deleteHostPost(${p.id})" class="text-red-500 hover:underline">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderDynamicArticles() {
+            const container = document.getElementById('dynamicArticlesGrid');
+            const craftPosts = hostUploadedPosts.filter(p => p.cat === 'kerajinan');
+
+            container.innerHTML = craftPosts.map(p => `
+                <div class="glass-card rounded-2xl overflow-hidden group shadow-md hover:shadow-xl transition">
+                    <div class="h-40 bg-slate-200 overflow-hidden">
+                        <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-4 space-y-2">
+                        <span class="text-[10px] uppercase font-bold text-emerald-500">Daur Ulang KWT</span>
+                        <h4 class="font-bold text-base">${p.title}</h4>
+                        <p class="text-xs text-slate-500">${p.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('galleryGrid');
+            const galPosts = hostUploadedPosts.filter(p => p.cat === 'galeri');
+
+            container.innerHTML = galPosts.map(p => `
+                <div class="glass-card rounded-2xl overflow-hidden shadow-md">
+                    <div class="h-44 overflow-hidden">
+                        <img src="${p.img}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-bold text-xs">${p.title}</h4>
+                        <span class="text-[10px] text-slate-400 block mt-1">${p.date}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // DIREKTORI & PRICES
+        function renderTrashDirectory(data) {
+            const container = document.getElementById('trashDirectoryGrid');
+            container.innerHTML = data.map(item => `
+                <div class="glass-card p-4 rounded-2xl space-y-2 border border-slate-200 dark:border-slate-800">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-500">${item.category}</span>
+                    <h4 class="font-bold text-sm">${item.name}</h4>
+                    <p class="text-xs text-slate-500">${item.desc}</p>
+                    <div class="text-xs font-bold text-emerald-600">${item.price}</div>
+                </div>
+            `).join('');
+        }
+
+        function filterTrashDirectory() {
+            const q = document.getElementById('trashSearchInput').value.toLowerCase();
+            renderTrashDirectory(trashDirectory.filter(i => i.name.toLowerCase().includes(q) || i.category.toLowerCase().includes(q)));
+        }
+
+        function renderPriceList() {
+            document.getElementById('priceListTable').innerHTML = priceList.map(item => `
+                <tr>
+                    <td class="p-2.5 font-semibold text-emerald-600">${item.cat}</td>
+                    <td class="p-2.5 font-bold">${item.name}</td>
+                    <td class="p-2.5 text-slate-500">${item.cond}</td>
+                    <td class="p-2.5 text-right font-black text-emerald-500">Rp ${item.price.toLocaleString('id-ID')}</td>
+                </tr>
+            `).join('');
+        }
+
+        // QUIZ
+        function renderQuizQuestion() {
+            const q = quizData[currentQuizIndex];
+            document.getElementById('quizProgress').innerText = `Soal ${currentQuizIndex + 1} dari ${quizData.length}`;
+            document.getElementById('questionText').innerText = q.q;
+            document.getElementById('explanationBox').classList.add('hidden');
+
+            document.getElementById('optionsContainer').innerHTML = q.opts.map((opt, idx) => `
+                <button onclick="checkAnswer(${idx})" class="w-full text-left p-3 rounded-xl glass-card border border-slate-300 dark:border-slate-700 text-xs font-semibold">
+                    ${opt}
+                </button>
+            `).join('');
+        }
+
+        function checkAnswer(idx) {
+            const q = quizData[currentQuizIndex];
+            const box = document.getElementById('explanationBox');
+            if (idx === q.ans) {
+                quizScore += 50;
+                document.getElementById('quizScore').innerText = `Skor: ${quizScore}`;
+                document.getElementById('explanationTitle').innerText = "Tepat Sekali!";
+            } else {
+                document.getElementById('explanationTitle').innerText = "Kurang Tepat. Pembahasan:";
+            }
+            document.getElementById('explanationText').innerText = q.exp;
+            box.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuizIndex++;
+            if (currentQuizIndex < quizData.length) renderQuizQuestion();
+            else alert(`Kuis Selesai! Skor kamu: ${quizScore}`);
+        }
+
+        // DEPOSIT & TRANSACTIONS
+        function openDepositModal() { document.getElementById('depositModal').classList.remove('hidden'); }
+        function closeDepositModal() { document.getElementById('depositModal').classList.add('hidden'); }
+
+        function calculateDepositTotal() {
+            const type = document.getElementById('depTypeSelect').value;
+            const weight = parseFloat(document.getElementById('depWeightInput').value) || 0;
+            let rate = 3000;
+            if (type.includes('Kardus')) rate = 2200;
+            if (type.includes('Kaleng')) rate = 12000;
+            if (type.includes('Jelantah')) rate = 6500;
+            const total = weight * rate;
+            document.getElementById('depCalculatedRp').innerText = `Rp ${total.toLocaleString('id-ID')}`;
+            return total;
+        }
+
+        function handleDepositSubmit(e) {
+            e.preventDefault();
+            const newTx = {
+                id: Date.now(),
+                date: new Date().toISOString().split('T')[0],
+                type: document.getElementById('depTypeSelect').value,
+                weight: parseFloat(document.getElementById('depWeightInput').value),
+                totalRp: calculateDepositTotal(),
+                officer: 'Petugas RT 04'
+            };
+            userTransactions.unshift(newTx);
+            localStorage.setItem('ecoWilayahTx', JSON.stringify(userTransactions));
+            renderTransactionHistory();
+            updateDashboardTotals();
+            closeDepositModal();
+            alert('Setoran dicatat!');
+        }
+
+        function renderTransactionHistory() {
+            document.getElementById('transactionHistoryTable').innerHTML = userTransactions.map(tx => `
+                <tr>
+                    <td class="p-2 text-slate-400">${tx.date}</td>
+                    <td class="p-2 font-bold">${tx.type}</td>
+                    <td class="p-2">${tx.weight} kg</td>
+                    <td class="p-2 font-extrabold text-emerald-500">Rp ${tx.totalRp.toLocaleString('id-ID')}</td>
+                    <td class="p-2 text-slate-400">${tx.officer}</td>
+                </tr>
+            `).join('');
+        }
+
+        function updateDashboardTotals() {
+            const totalRp = userTransactions.reduce((a, b) => a + b.totalRp, 0);
+            const totalKg = userTransactions.reduce((a, b) => a + b.weight, 0);
+
+            document.getElementById('userTotalRp').innerText = `Rp ${totalRp.toLocaleString('id-ID')}`;
+            document.getElementById('userTotalKg').innerText = `${totalKg.toFixed(1)} Kg`;
+            document.getElementById('userDetailInfo').innerText = `${currentUser.nama} (${currentUser.role.toUpperCase()})`;
+        }
+
+        function initCharts() {
+            const ctx1 = document.getElementById('depositTrendChart').getContext('2d');
+            trendChartInstance = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4'],
+                    datasets: [{ label: 'Kg', data: [8.5, 12.0, 9.7, 15.2], borderColor: '#10b981', fill: false }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            const ctx2 = document.getElementById('categoryPieChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Plastik', 'Kardus', 'Alumunium'],
+                    datasets: [{ data: [45, 35, 20], backgroundColor: ['#10b981', '#fbbf24', '#3b82f6'] }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+    </script>
+</body>
+</html>
