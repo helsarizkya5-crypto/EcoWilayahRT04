@@ -225,7 +225,7 @@
                     </div>
                 </section>
 
-                <!-- SECTION 2: EDUKASI SAMPAH (DENGAN VIDEO 1 MENIT & POSTER) -->
+                <!-- SECTION 2: EDUKASI SAMPAH (DENGAN VIDEO YOUTUBE BARU) -->
                 <section id="tab-edukasi" class="tab-panel hidden space-y-8">
                     <div class="text-center max-w-3xl mx-auto space-y-2">
                         <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold uppercase">Pusat Pengetahuan Lingkungan</span>
@@ -233,16 +233,16 @@
                         <p class="text-slate-500 dark:text-slate-400 text-sm">Informasi terpercaya mengenai definisi, klasifikasi, dampak ekologis, hingga metode pengolahan sirkular sampah.</p>
                     </div>
 
-                    <!-- Video Edukasi 1 Menit & Poster Infografis -->
+                    <!-- Video Edukasi Baru & Poster Infografis -->
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="glass-card p-6 rounded-3xl space-y-4 shadow-xl">
                             <div class="flex items-center gap-2 text-emerald-500 font-bold text-sm">
-                                <i class="fa-solid fa-video"></i> Video Edukasi Singkat (1 Menit)
+                                <i class="fa-solid fa-video"></i> Video Edukasi: "Yuk, Kita Pilah Sampah!"
                             </div>
                             <div class="aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 flex items-center justify-center relative shadow-inner">
-                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Edukasi Bank Sampah" allowfullscreen></iframe>
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/buv-DHVcLEo" title="Yuk, Kita Pilah Sampah!" allowfullscreen></iframe>
                             </div>
-                            <p class="text-xs text-slate-500 text-center">Tonton ringkasan pentingnya pemilahan sampah rumah tangga dalam 1 menit.</p>
+                            <p class="text-xs text-slate-500 text-center">Tonton ringkasan pentingnya pemilahan sampah rumah tangga dari Unilever Indonesia.</p>
                         </div>
 
                         <div class="glass-card p-6 rounded-3xl space-y-4 shadow-xl flex flex-col justify-between">
@@ -634,7 +634,7 @@
         </footer>
     </div>
 
-    <!-- MODAL 1: AUTHENTICATION (LOGIN & REGISTRASI WARGA / HOST EKSLUSIF) -->
+    <!-- MODAL 1: AUTHENTICATION (LOGIN & REGISTRASI) -->
     <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden animate-fade-in">
         <div class="glass-card w-full max-w-md rounded-3xl p-6 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
@@ -663,7 +663,7 @@
                 <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition">Masuk Sekarang</button>
             </form>
 
-            <!-- REGISTRATION FORM (WARGA BARU) -->
+            <!-- REGISTRATION FORM -->
             <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="space-y-3 hidden">
                 <div>
                     <label class="block text-xs font-bold mb-1">1. Nama / Nama Kepala Keluarga</label>
@@ -747,7 +747,6 @@
     <script>
         const GSHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwktrZNJtZw_YCMaOCRpVc09-D7-GYcy5n0LFZugLEEAvguP2jj4vihLkebshTPpWB0PQ/exec";
 
-        // 3 Email Resmi Host Terdaftar (Sandi: 12345)
         const OFFICIAL_HOSTS = [
             "helsarizkya1@gmail.com",
             "helsarizkya2@gmail.com",
@@ -836,7 +835,6 @@
         function toggleDarkMode() { document.documentElement.classList.toggle('dark'); }
         function toggleSidebar() { document.getElementById('mainSidebar').classList.toggle('-translate-x-full'); }
 
-        // PROTEKSI TAB: KECUALI BERANDA & EDUKASI, WAJIB LOGIN
         function switchTab(tabId) {
             if (tabId !== 'home' && tabId !== 'edukasi' && !currentUser) {
                 alert('Silakan Masuk / Buat Akun terlebih dahulu untuk mengakses menu ini.');
@@ -856,9 +854,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function checkProtectedTab(tabId) {
-            switchTab(tabId);
-        }
+        function checkProtectedTab(tabId) { switchTab(tabId); }
 
         function checkTabAccessUI() {
             const lockedIcons = document.querySelectorAll('.locked-icon');
@@ -883,7 +879,6 @@
         function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
         function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
 
-        // TOGGLE LOGIN / REGISTER MODAL TABS
         function switchAuthMode(mode) {
             if (mode === 'register') {
                 document.getElementById('loginForm').classList.add('hidden');
@@ -898,7 +893,6 @@
             }
         }
 
-        // PENDAFTARAN AKUN WARGA BARU
         function handleRegisterSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value.trim();
@@ -914,7 +908,7 @@
                 return;
             }
 
-            // Cek apakah sudah terdaftar
+            let registeredUsers = JSON.parse(localStorage.getItem('ecoRegisteredUsers')) || [];
             const existing = registeredUsers.find(u => u.email === email);
             if (existing) {
                 alert('Email ini sudah terdaftar! Silakan langsung login.');
@@ -931,13 +925,11 @@
             switchAuthMode('login');
         }
 
-        // PROSES LOGIN (VALIDASI HOST ATAU WARGA TERDAFTAR)
         function handleLoginSubmit(e) {
             e.preventDefault();
             const emailInput = document.getElementById('loginEmail').value.trim().toLowerCase();
             const passInput = document.getElementById('loginPass').value;
 
-            // 1. Cek apakah login sebagai Host Resmi
             if (OFFICIAL_HOSTS.includes(emailInput)) {
                 if (passInput === "12345") {
                     currentUser = { nama: 'Host RT 04 Kembangarum', email: emailInput, role: 'admin', alamat: 'Pos RT 04' };
@@ -954,20 +946,19 @@
                 }
             }
 
-            // 2. Cek apakah terdaftar sebagai Warga
+            let registeredUsers = JSON.parse(localStorage.getItem('ecoRegisteredUsers')) || [];
             const foundUser = registeredUsers.find(u => u.email === emailInput);
             if (!foundUser) {
-                alert('Email belum terdaftar! Silakan daftar akun terlebih dahulu melalui tab "Daftar Akun Baru".');
+                alert('Email belum terdaftar! Silakan daftar akun terlebih dahulu.');
                 switchAuthMode('register');
                 return;
             }
 
             if (foundUser.pass !== passInput) {
-                alert('Kata sandi salah! Pastikan sama seperti saat didaftarkan.');
+                alert('Kata sandi salah!');
                 return;
             }
 
-            // Login Berhasil untuk Warga
             currentUser = { nama: foundUser.name, email: foundUser.email, role: 'warga', alamat: foundUser.address };
             localStorage.setItem('ecoWilayahUser', JSON.stringify(currentUser));
             renderUserWidget();
@@ -1010,7 +1001,6 @@
             document.getElementById('hostBadgeSidebar').innerText = isHost ? "AKTIF" : "ADMIN";
         }
 
-        // FITUR HOST KIRIM NOTIFIKASI PENGINGAT PENIMBANGAN
         function handleSendNotification(e) {
             e.preventDefault();
             const newNotif = {
@@ -1027,8 +1017,7 @@
         }
 
         function toggleNotifDropdown() {
-            const dropdown = document.getElementById('notifDropdown');
-            dropdown.classList.toggle('hidden');
+            document.getElementById('notifDropdown').classList.toggle('hidden');
         }
 
         function renderNotifications() {
@@ -1052,7 +1041,6 @@
             }
         }
 
-        // DEPOSIT & GSHEET SYNC
         function openDepositModal() {
             if (!currentUser) { alert('Harap login terlebih dahulu.'); openAuthModal(); return; }
             document.getElementById('depositModal').classList.remove('hidden');
@@ -1121,7 +1109,7 @@
         function renderTransactionHistory() {
             const tbody = document.getElementById('transactionHistoryTable');
             if (userTransactions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada riwayat setoran. Data dimulai dari nol.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada riwayat setoran.</td></tr>`;
                 return;
             }
             tbody.innerHTML = userTransactions.map(tx => `
@@ -1146,7 +1134,6 @@
             document.getElementById('userDetailInfo').innerText = currentUser ? currentUser.nama : 'Warga RT 04';
         }
 
-        // HOST UPLOAD LOGIC
         function handleHostUpload(e) {
             e.preventDefault();
             const newPost = {
